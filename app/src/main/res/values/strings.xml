@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Human</string>
+    <string-array name="query_suggestions">
+        <item>Android</item>
+        <item>iOS</item>
+        <item>SCALA</item>
+        <item>Ruby</item>
+        <item>JavaScript</item>
+    </string-array>
+
 </resources>
