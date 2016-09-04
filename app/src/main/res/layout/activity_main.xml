@@ -7,14 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.jiit.minor2.shubhamjoshi.human.MainActivity">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/rView"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
-
     <FrameLayout
         android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
@@ -26,11 +18,17 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary" />
 
-        <com.miguelcatalan.materialsearchview.MaterialSearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </FrameLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/rView"
+        android:layout_below="@id/toolbar_container"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+
 
 
 </RelativeLayout>
