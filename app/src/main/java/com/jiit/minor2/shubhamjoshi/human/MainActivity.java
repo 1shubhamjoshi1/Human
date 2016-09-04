@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rView);
-
+        startActivity(new Intent(this,Register.class));
 
         String data1[]={"a","b"};
         String data2[]={"a","b"};
