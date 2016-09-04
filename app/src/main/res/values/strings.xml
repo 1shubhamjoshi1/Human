@@ -1,15 +1,10 @@
 <resources>
     <string name="app_name">Human</string>
     <string name="full_name">Full Name</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="sign_up">SIGN UP</string>
     <string name="email">Email</string>
+    <string name="facebook_app_id">1215414705189735</string>
     <string name="password">Password</string>
-    <string-array name="query_suggestions">
-        <item>Android</item>
-        <item>iOS</item>
-        <item>SCALA</item>
-        <item>Ruby</item>
-        <item>JavaScript</item>
-    </string-array>
+    <string name="log_in_with_facebook">Log in with Facebook</string>
 
 </resources>

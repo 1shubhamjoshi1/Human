@@ -1,18 +1,15 @@
 package com.jiit.minor2.shubhamjoshi.human;
 
 import android.content.Intent;
-import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.jiit.minor2.shubhamjoshi.human.Adapters.HomeAdapter;
+import com.jiit.minor2.shubhamjoshi.human.App.Register;
 import com.jiit.minor2.shubhamjoshi.human.modals.Items;
 
 
@@ -44,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+
+
     }
 
 

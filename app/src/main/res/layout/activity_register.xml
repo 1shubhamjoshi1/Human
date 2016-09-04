@@ -14,7 +14,7 @@
 
 
 
-    tools:context="com.jiit.minor2.shubhamjoshi.human.Register">
+    tools:context=".App.Register">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@android:color/white"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:gravity="center"
             android:text="@string/sign_up"/>
     </LinearLayout>
@@ -39,29 +39,15 @@
         android:id="@+id/socio_login"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_with_facebook"
             android:layout_width="match_parent"
-            android:background="@color/fb_color"
-
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:weightSum="1">
-
-
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Facebook"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-
-                />
-        </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+           android:paddingLeft="50dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/log_in_with_facebook" />
         <LinearLayout
             android:layout_width="match_parent"
             android:background="@color/google_color"
@@ -177,7 +163,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-
         android:background="#F44336"
         android:layout_below="@+id/forms_id"
         android:layout_marginTop="3dp"
