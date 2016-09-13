@@ -5,4 +5,7 @@ package com.jiit.minor2.shubhamjoshi.human.Utils;
  */
 public final class Constants {
     public static  final String BASE_URL = "https://humanjiit.firebaseio.com";
+    public static final String EMAIL = "email";
+    public static final String PUBLIC_PROFILE = "public_profile";
+    public static final String USER_PHOTO = "user_photos";
 }

@@ -11,6 +11,9 @@ import android.view.Menu;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.firebase.client.AuthData;
@@ -18,6 +21,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.jiit.minor2.shubhamjoshi.human.R;
 import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
+import com.jiit.minor2.shubhamjoshi.human.modals.firebase.User;
+
+import org.json.JSONObject;
 
 public class Register extends AppCompatActivity {
 
@@ -103,6 +109,8 @@ public class Register extends AppCompatActivity {
     }
 
 
+    /***********************MAIN****************************/
+
     private void setAuthenticatedUser(AuthData authData) {
         if (authData != null) {
             /* Hide all the login buttons */
@@ -124,7 +132,34 @@ public class Register extends AppCompatActivity {
                 //  mLoggedInStatusTextView.setText("Logged in as " + name + " (" + authData.getProvider() + ")");
             }
 
+
+
+            User user = new User(name,"S");
+
+            mFirebaseRef.child("Users").push().setValue(user);
             startActivity(new Intent(Register.this,TrainSet.class));
+
+            Bundle params = new Bundle();
+            params.putString("fields", "id,email,gender,cover,picture.type(large)");
+            new GraphRequest(AccessToken.getCurrentAccessToken(), "me", params, HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        @Override
+                        public void onCompleted(GraphResponse response) {
+                            if (response != null) {
+                                try {
+                                    JSONObject data = response.getJSONObject();
+                                    if (data.has("picture")) {
+                                        String profilePicUrl = data.getJSONObject("picture").getJSONObject("data").getString("url");
+                                        // set profile image to imageview using Picasso or Native methods
+                                        Log.e("SJSJ",profilePicUrl);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }).executeAsync();
+
         } else {
             /* No authenticated user show all the login buttons */
             // mFacebookLoginButton.setVisibility(View.VISIBLE);
@@ -134,6 +169,9 @@ public class Register extends AppCompatActivity {
         /* invalidate options menu to hide/show the logout button */
         supportInvalidateOptionsMenu();
     }
+
+
+    /*********************MAIN ENDS*********************/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -213,10 +251,6 @@ public class Register extends AppCompatActivity {
             }
         }
     }
-
-
-    
-
 
 }
 
