@@ -25,13 +25,17 @@ import com.jiit.minor2.shubhamjoshi.human.modals.firebase.User;
 
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 public class Register extends AppCompatActivity {
 
     private Firebase ref = new Firebase(Constants.BASE_URL);
     private LoginButton mFacebookLoginButton;
     private CallbackManager mFacebookCallbackManager;
     private ProgressDialog mAuthProgressDialog;
-
+    private String profileImage;
+    private String email;
+    private String fullName;
     /* A reference to the Firebase */
     private Firebase mFirebaseRef = new Firebase(Constants.BASE_URL);
 
@@ -45,12 +49,22 @@ public class Register extends AppCompatActivity {
     private AccessTokenTracker mFacebookAccessTokenTracker;
     private static final String TAG = "shubhamjoshi.human";
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAuthProgressDialog.dismiss();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         mFacebookCallbackManager = CallbackManager.Factory.create();
         mFacebookLoginButton = (LoginButton) findViewById(R.id.login_with_facebook);
+        mFacebookLoginButton.setReadPermissions(Arrays.asList(
+                "public_profile", "email", "user_birthday", "user_friends"));
         mFacebookAccessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -58,6 +72,7 @@ public class Register extends AppCompatActivity {
                 Register.this.onFacebookAccessTokenChange(currentAccessToken);
             }
         };
+
 
 
 
@@ -134,10 +149,8 @@ public class Register extends AppCompatActivity {
 
 
 
-            User user = new User(name,"S");
 
-            mFirebaseRef.child("Users").push().setValue(user);
-            startActivity(new Intent(Register.this,TrainSet.class));
+            //startActivity(new Intent(Register.this,TrainSet.class));
 
             Bundle params = new Bundle();
             params.putString("fields", "id,email,gender,cover,picture.type(large)");
@@ -149,9 +162,16 @@ public class Register extends AppCompatActivity {
                                 try {
                                     JSONObject data = response.getJSONObject();
                                     if (data.has("picture")) {
-                                        String profilePicUrl = data.getJSONObject("picture").getJSONObject("data").getString("url");
+                                        profileImage = data.getJSONObject("picture").getJSONObject("data").getString("url");
+                                        email = data.getString("email");
+                                        //birthday = data.getString("birthday");
+                                        Firebase branchUser = new Firebase(Constants.BASE_URL+"/Users");
+                                        Log.e("Sj",email+" "+fullName);
+                                        branchUser.child((email!=null)?email.replace('.',','):"a").setValue(new User("sds",email,profileImage));
+
+                                        Log.e("SJSJ",email);
                                         // set profile image to imageview using Picasso or Native methods
-                                        Log.e("SJSJ",profilePicUrl);
+                                       // Log.e("SJSJ",profilePicUrl);
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -228,6 +248,8 @@ public class Register extends AppCompatActivity {
         public void onAuthenticated(AuthData authData) {
             mAuthProgressDialog.hide();
             Log.i(TAG, provider + " auth successful");
+
+
             startActivity(new Intent(Register.this, TrainSet.class));
             setAuthenticatedUser(authData);
         }

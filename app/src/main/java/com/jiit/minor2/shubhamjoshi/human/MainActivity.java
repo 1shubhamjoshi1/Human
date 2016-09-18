@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.jiit.minor2.shubhamjoshi.human.Adapters.HomeAdapter;
 import com.jiit.minor2.shubhamjoshi.human.App.Register;
+import com.jiit.minor2.shubhamjoshi.human.App.TrainSet;
 import com.jiit.minor2.shubhamjoshi.human.modals.Items;
 
 
@@ -24,8 +25,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rView);
         startActivity(new Intent(this,Register.class));
+       // startActivity(new Intent(this,TrainSet.class));
 
         String data1[]={"a","b"};
         String data2[]={"a","b"};
