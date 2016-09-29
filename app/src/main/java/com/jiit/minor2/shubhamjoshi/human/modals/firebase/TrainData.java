@@ -8,6 +8,7 @@ public class TrainData {
     String category;
     String heading;
     String neuron;
+
     String imageUrl;
 
     public TrainData() {
