@@ -1,0 +1,53 @@
+[33mcommit 187fa0dafec4f13ff3d48e8667853e5300f7f1b4[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Sun Oct 2 15:53:49 2016 +0530
+
+    Suffix  array init
+
+[33mcommit 1733b99de441c4d62955c150d8171f8c5764874c[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Fri Sep 30 02:32:14 2016 +0530
+
+    twitter api implemented
+
+[33mcommit a46caef92ffddb9b75c3e44a31f5c55a5999ff2e[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Sun Sep 18 23:29:06 2016 +0530
+
+    User authentification
+
+[33mcommit 6f61b3270415101d4ab615ac616a57acffcee357[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Wed Sep 14 00:54:22 2016 +0530
+
+    Fp profile pic fetch
+
+[33mcommit 8c78c508ab8f3b9a87b932f6a7631ccfd70566ef[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Sun Sep 4 23:49:11 2016 +0530
+
+    FB login
+
+[33mcommit a2e5fa154e615b69af865c9c3b18be0fba38de28[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Sun Sep 4 20:27:34 2016 +0530
+
+    Register Screen Ui
+
+[33mcommit e4c0346072a6dcf96c78cd8a59dc2437c1b8e541[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Sun Sep 4 17:59:35 2016 +0530
+
+    Removed searchView
+
+[33mcommit 947844a22475aeea787d0067e83d0d824ed1ef25[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Thu Sep 1 03:10:06 2016 +0530
+
+    Search Implemented
+
+[33mcommit 0be732094255290a8a571910b8cbc89b37a31a01[m
+Author: shubham <1shubhamjoshi1@gmail.com>
+Date:   Thu Sep 1 00:54:59 2016 +0530
+
+    RecyclerView Implemented
