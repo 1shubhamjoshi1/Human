@@ -15,4 +15,21 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:layout_alignParentBottom="true"
+        android:background="#3c8b9e">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="Get Started !"
+            android:textColor="#fff"
+            android:textSize="20sp"
+
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
 </RelativeLayout>

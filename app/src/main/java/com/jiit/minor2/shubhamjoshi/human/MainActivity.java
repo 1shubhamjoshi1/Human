@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rView);
-        startActivity(new Intent(this,TrainSet.class));
+        startActivity(new Intent(this,Register.class));
+      //  startActivity(new Intent(this,TrainSet.class));
        // startActivity(new Intent(this,TrainSet.class));
         new Thread(new Runnable() {
             @Override

@@ -66,45 +66,50 @@ public class TrainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         return  new ViewHolderTrain(inflater.inflate(R.layout.twitter_train,parent,false));
-        }
+    }
 
     static int lastPosition=-1;
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-            Picasso.with(mContext).load(mData.get(position).getImageUrl()).into( ((ViewHolderTrain) holder).mImageView1);
+        //performance optimisation
+//        Picasso.with(mContext).load(mData.get(position).getImageUrl()).into( ((ViewHolderTrain) holder).mImageView1);
+        Picasso.with(mContext)
+                .load(mData.get(position).getImageUrl())
+                .fit()
+                .centerCrop()
+                .into(((ViewHolderTrain) holder).mImageView1);
+        ((ViewHolderTrain) holder).tv2.setText(mData.get(position).getTag());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Firebase f = new Firebase(Constants.BASE_URL);
 
-            ((ViewHolderTrain) holder).tv2.setText(mData.get(position).getTag());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Firebase f = new Firebase(Constants.BASE_URL);
+                //lets strip data
 
-                    //lets strip data
-
-                    String str = mData.get(position).getTag();
-                    List<String> list = new LinkedList<String>(Arrays.asList(str.split(" ")));
-                    List<String> newList = new LinkedList<String>();
-                    for(int i=0;i<list.size();i++)
-                    {
-                        if(list.get(i).contains("#"))
-                            newList.add(list.get(i));
-
-                    }
-                    Log.e("SJ",newList.toString());
-
-                    for(int i=0;i<newList.size();i++)
-                    {
-                        f.child("interests").child(email.replace(".",",")).child(newList.get(i).replace("#"," ")).setValue("");
-                    }
-                  //  f.child("interests").child(email.replace(".",",")).push().setValue(mData.get(position).getTag());
+                String str = mData.get(position).getTag();
+                List<String> list = new LinkedList<String>(Arrays.asList(str.split(" ")));
+                List<String> newList = new LinkedList<String>();
+                for(int i=0;i<list.size();i++)
+                {
+                    if(list.get(i).contains("#"))
+                        newList.add(list.get(i));
 
                 }
-            });
+                Log.e("SJ",newList.toString());
+
+                for(int i=0;i<newList.size();i++)
+                {
+                    f.child("interests").child(email.replace(".",",")).child(newList.get(i).replace("#"," ").replace(".","")).setValue("");
+                }
+                //  f.child("interests").child(email.replace(".",",")).push().setValue(mData.get(position).getTag());
+
+            }
+        });
 
 
 
-      }
+    }
 
     @Override
     public int getItemCount() {
