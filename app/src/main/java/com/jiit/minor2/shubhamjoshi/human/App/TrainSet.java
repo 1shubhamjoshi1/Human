@@ -41,7 +41,7 @@ public class TrainSet extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     Firebase mRef;
-
+    TrainAdapter.ClickListener mClickListener;
     ConfigurationBuilder cb;
     List<TwitterData> mTwitterDatas = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class TrainSet extends AppCompatActivity {
 
 
         try {
-            Query query = new Query("#trending");
+            Query query = new Query("#USA OR #India OR #dark");
             query.setCount(100);
             QueryResult result;
             result = twitter.search(query);
@@ -117,7 +117,6 @@ public class TrainSet extends AppCompatActivity {
         showCaseBuilder.setTarget(Target.NONE);
         showCaseBuilder.setContentTitle("Lets get you started");
         showCaseBuilder.setContentText("Let our system get trained to know\n more about you!!");
-       // showCaseBuilder.setStyle(R.style.CustomShowcaseTheme);
         showCaseBuilder.build();
     }
     @Override
@@ -130,6 +129,8 @@ public class TrainSet extends AppCompatActivity {
                 startUp();
             }
         }).start();
+
+
     }
 
 

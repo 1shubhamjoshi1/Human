@@ -2,6 +2,7 @@ package com.jiit.minor2.shubhamjoshi.human.App;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -164,14 +165,12 @@ public class Register extends AppCompatActivity {
                                     if (data.has("picture")) {
                                         profileImage = data.getJSONObject("picture").getJSONObject("data").getString("url");
                                         email = data.getString("email");
-                                        //birthday = data.getString("birthday");
+
                                         Firebase branchUser = new Firebase(Constants.BASE_URL+"/Users");
-                                        Log.e("Sj",email+" "+fullName);
+
                                         branchUser.child((email!=null)?email.replace('.',','):"a").setValue(new User("sds",email,profileImage));
 
-                                        Log.e("SJSJ",email);
-                                        // set profile image to imageview using Picasso or Native methods
-                                       // Log.e("SJSJ",profilePicUrl);
+
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -249,7 +248,9 @@ public class Register extends AppCompatActivity {
             mAuthProgressDialog.hide();
             Log.i(TAG, provider + " auth successful");
 
-
+            SharedPreferences.Editor editor = getSharedPreferences("EMAIL", MODE_PRIVATE).edit();
+            editor.putString("email",email);
+            editor.commit();
             startActivity(new Intent(Register.this, TrainSet.class));
             setAuthenticatedUser(authData);
         }
