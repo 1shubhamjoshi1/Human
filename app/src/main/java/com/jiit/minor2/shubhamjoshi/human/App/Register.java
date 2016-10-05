@@ -1,6 +1,5 @@
 package com.jiit.minor2.shubhamjoshi.human.App;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,7 +32,7 @@ public class Register extends AppCompatActivity {
     private Firebase ref = new Firebase(Constants.BASE_URL);
     private LoginButton mFacebookLoginButton;
     private CallbackManager mFacebookCallbackManager;
-    private ProgressDialog mAuthProgressDialog;
+
     private String profileImage;
     private String email;
     private String fullName;
@@ -50,11 +49,15 @@ public class Register extends AppCompatActivity {
     private AccessTokenTracker mFacebookAccessTokenTracker;
     private static final String TAG = "shubhamjoshi.human";
 
+    public boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mAuthProgressDialog.dismiss();
+        //mAuthProgressDialog.dismiss();
     }
 
     @Override
@@ -62,17 +65,20 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mFacebookCallbackManager = CallbackManager.Factory.create();
-        mFacebookLoginButton = (LoginButton) findViewById(R.id.login_with_facebook);
-        mFacebookLoginButton.setReadPermissions(Arrays.asList(
-                "public_profile", "email", "user_birthday", "user_friends"));
-        mFacebookAccessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                Log.i(TAG, "Facebook.AccessTokenTracker.OnCurrentAccessTokenChanged");
-                Register.this.onFacebookAccessTokenChange(currentAccessToken);
-            }
-        };
+        if (isLoggedIn()) {
+            startActivity(new Intent(this, TrainSet.class));
+        } else {
+            mFacebookCallbackManager = CallbackManager.Factory.create();
+            mFacebookLoginButton = (LoginButton) findViewById(R.id.login_with_facebook);
+            mFacebookLoginButton.setReadPermissions(Arrays.asList(
+                    "public_profile", "email", "user_birthday", "user_friends"));
+            mFacebookAccessTokenTracker = new AccessTokenTracker() {
+                @Override
+                protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                    Log.i(TAG, "Facebook.AccessTokenTracker.OnCurrentAccessTokenChanged");
+                    Register.this.onFacebookAccessTokenChange(currentAccessToken);
+                }
+            };
 
 
 
@@ -81,22 +87,23 @@ public class Register extends AppCompatActivity {
 
 
         /* Setup the progress dialog that is displayed later when authenticating with Firebase */
-        mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading");
-        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
-        mAuthProgressDialog.setCancelable(false);
-        mAuthProgressDialog.show();
+//            mAuthProgressDialog = new ProgressDialog(this);
+//            mAuthProgressDialog.setTitle("Loading");
+//            mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+//            mAuthProgressDialog.setCancelable(false);
+//            mAuthProgressDialog.show();
 
-        mAuthStateListener = new Firebase.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(AuthData authData) {
-                mAuthProgressDialog.hide();
-                setAuthenticatedUser(authData);
-            }
-        };
+            mAuthStateListener = new Firebase.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(AuthData authData) {
+                    //      mAuthProgressDialog.hide();
+                    setAuthenticatedUser(authData);
+                }
+            };
         /* Check if the user is authenticated with Firebase already. If this is the case we can set the authenticated
          * user and hide hide any login buttons */
-        mFirebaseRef.addAuthStateListener(mAuthStateListener);
+            mFirebaseRef.addAuthStateListener(mAuthStateListener);
+        }
 
 
     }
@@ -125,7 +132,9 @@ public class Register extends AppCompatActivity {
     }
 
 
-    /***********************MAIN****************************/
+    /***********************
+     * MAIN
+     ****************************/
 
     private void setAuthenticatedUser(AuthData authData) {
         if (authData != null) {
@@ -149,8 +158,6 @@ public class Register extends AppCompatActivity {
             }
 
 
-
-
             //startActivity(new Intent(Register.this,TrainSet.class));
 
             Bundle params = new Bundle();
@@ -166,9 +173,9 @@ public class Register extends AppCompatActivity {
                                         profileImage = data.getJSONObject("picture").getJSONObject("data").getString("url");
                                         email = data.getString("email");
 
-                                        Firebase branchUser = new Firebase(Constants.BASE_URL+"/Users");
+                                        Firebase branchUser = new Firebase(Constants.BASE_URL + "/Users");
 
-                                        branchUser.child((email!=null)?email.replace('.',','):"a").setValue(new User("sds",email,profileImage));
+                                        branchUser.child((email != null) ? email.replace('.', ',') : "a").setValue(new User("sds", email, profileImage));
 
 
                                     }
@@ -190,7 +197,9 @@ public class Register extends AppCompatActivity {
     }
 
 
-    /*********************MAIN ENDS*********************/
+    /*********************
+     * MAIN ENDS
+     *********************/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -245,11 +254,11 @@ public class Register extends AppCompatActivity {
 
         @Override
         public void onAuthenticated(AuthData authData) {
-            mAuthProgressDialog.hide();
+            //  mAuthProgressDialog.hide();
             Log.i(TAG, provider + " auth successful");
 
             SharedPreferences.Editor editor = getSharedPreferences("EMAIL", MODE_PRIVATE).edit();
-            editor.putString("email",email);
+            editor.putString("email", email);
             editor.commit();
             startActivity(new Intent(Register.this, TrainSet.class));
             setAuthenticatedUser(authData);
@@ -257,14 +266,14 @@ public class Register extends AppCompatActivity {
 
         @Override
         public void onAuthenticationError(FirebaseError firebaseError) {
-            mAuthProgressDialog.hide();
+            //  mAuthProgressDialog.hide();
             showErrorDialog(firebaseError.toString());
         }
     }
 
     private void onFacebookAccessTokenChange(AccessToken token) {
         if (token != null) {
-            mAuthProgressDialog.show();
+
             mFirebaseRef.authWithOAuthToken("facebook", token.getToken(), new AuthResultHandler("facebook"));
         } else {
             // Logged out of Facebook and currently authenticated with Firebase using Facebook, so do a logout

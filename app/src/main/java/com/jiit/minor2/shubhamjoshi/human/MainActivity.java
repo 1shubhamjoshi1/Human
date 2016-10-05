@@ -1,24 +1,18 @@
 package com.jiit.minor2.shubhamjoshi.human;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.jiit.minor2.shubhamjoshi.human.Adapters.HomeAdapter;
-import com.jiit.minor2.shubhamjoshi.human.App.Register;
-import com.jiit.minor2.shubhamjoshi.human.App.TrainSet;
 import com.jiit.minor2.shubhamjoshi.human.modals.Items;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
-import twitter4j.GeoLocation;
 import twitter4j.MediaEntity;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -28,14 +22,11 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-import static java.sql.DriverManager.println;
-
 
 public class MainActivity extends AppCompatActivity {
     ConfigurationBuilder cb;
 
-    public void startUp()
-    {
+    public void startUp() {
         cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
                 .setOAuthConsumerKey("t437OESAlLD5BWcbDJbkh7SC6")
@@ -47,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Twitter twitter = new TwitterFactory(cb.build()).getInstance();
 
 
-
         try {
             Query query = new Query("#IPL");
             query.setCount(100);
@@ -56,13 +46,12 @@ public class MainActivity extends AppCompatActivity {
             List<Status> tweets = result.getTweets();
             for (Status tweet : tweets) {
                 MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
-                for(MediaEntity m : media){ //search trough your entities
+                for (MediaEntity m : media) { //search trough your entities
                     System.out.println(m.getMediaURL()); //get your url!
                 }
                 System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
             }
-        }
-        catch (TwitterException te) {
+        } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
             System.exit(-1);
@@ -70,19 +59,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private List<Items> mList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rView);
-        startActivity(new Intent(this,Register.class));
-      //  startActivity(new Intent(this,TrainSet.class));
-       // startActivity(new Intent(this,TrainSet.class));
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -94,11 +80,10 @@ public class MainActivity extends AppCompatActivity {
         }).start();
 
 
-
-        String data1[]={"a","b"};
-        String data2[]={"a","b"};
+        String data1[] = {"a", "b"};
+        String data2[] = {"a", "b"};
         test();
-        HomeAdapter homeAdapter = new HomeAdapter(this,mList);
+        HomeAdapter homeAdapter = new HomeAdapter(this, mList);
         recyclerView.setAdapter(homeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         homeAdapter.setClickListener(new HomeAdapter.ClickListener() {
@@ -108,44 +93,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
 
     }
 
 
+    void test() {
 
-
-    void test()
-    {
-
-        mList.add(new Items("A","B",1));
-        mList.add(new Items("AA","BB",0));
-        mList.add(new Items("AAA","BA",0));
-        mList.add(new Items("AV","BC",1));
-        mList.add(new Items("A","B",1));
-        mList.add(new Items("AA","BB",0));
-        mList.add(new Items("AAA","BA",0));
-        mList.add(new Items("AV","BC",1));
-        mList.add(new Items("A","B",1));
-        mList.add(new Items("AA","BB",0));
-        mList.add(new Items("AAA","BA",0));
-        mList.add(new Items("AV","BC",1));
-        mList.add(new Items("A","B",1));
-        mList.add(new Items("AA","BB",0));
-        mList.add(new Items("AAA","BA",0));
-        mList.add(new Items("AV","BC",1));
-        mList.add(new Items("A","B",1));
-        mList.add(new Items("AA","BB",0));
-        mList.add(new Items("AAA","BA",0));
-        mList.add(new Items("AV","BC",1));
-        mList.add(new Items("A","B",1));
-        mList.add(new Items("AA","BB",0));
-        mList.add(new Items("AAA","BA",0));
-        mList.add(new Items("AV","BC",1));
-        mList.add(new Items("A","B",1));
-        mList.add(new Items("AA","BB",0));
-        mList.add(new Items("AAA","BA",0));
-        mList.add(new Items("AV","BC",1));
+        mList.add(new Items("A", "B", 1));
+        mList.add(new Items("AA", "BB", 0));
+        mList.add(new Items("AAA", "BA", 0));
+        mList.add(new Items("AV", "BC", 1));
+        mList.add(new Items("A", "B", 1));
+        mList.add(new Items("AA", "BB", 0));
+        mList.add(new Items("AAA", "BA", 0));
+        mList.add(new Items("AV", "BC", 1));
+        mList.add(new Items("A", "B", 1));
+        mList.add(new Items("AA", "BB", 0));
+        mList.add(new Items("AAA", "BA", 0));
+        mList.add(new Items("AV", "BC", 1));
+        mList.add(new Items("A", "B", 1));
+        mList.add(new Items("AA", "BB", 0));
+        mList.add(new Items("AAA", "BA", 0));
+        mList.add(new Items("AV", "BC", 1));
+        mList.add(new Items("A", "B", 1));
+        mList.add(new Items("AA", "BB", 0));
+        mList.add(new Items("AAA", "BA", 0));
+        mList.add(new Items("AV", "BC", 1));
+        mList.add(new Items("A", "B", 1));
+        mList.add(new Items("AA", "BB", 0));
+        mList.add(new Items("AAA", "BA", 0));
+        mList.add(new Items("AV", "BC", 1));
+        mList.add(new Items("A", "B", 1));
+        mList.add(new Items("AA", "BB", 0));
+        mList.add(new Items("AAA", "BA", 0));
+        mList.add(new Items("AV", "BC", 1));
     }
 }

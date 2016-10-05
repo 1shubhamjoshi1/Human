@@ -8,50 +8,45 @@
     <string name="log_in_with_facebook">Log in with Facebook</string>
 
 
+    <string name="title_activity_login">login</string>
+    <string name="signup">SIGN UP</string>
 
-
-
-
-
-        <string name="title_activity_login">login</string>
-        <string name="signup">SIGN UP</string>
-
-        <string name="passwordChoose">Choose password</string>
-        <string name="usernameChoose">Choose username</string>
-        <string name="Dob">Date of birth</string>
-        <string name="gender">Gender</string>
-        <string name="emailChoice">or with email</string>
-        <string name="signUp">SIGN UP</string>
+    <string name="passwordChoose">Choose password</string>
+    <string name="usernameChoose">Choose username</string>
+    <string name="Dob">Date of birth</string>
+    <string name="gender">Gender</string>
+    <string name="emailChoice">or with email</string>
+    <string name="signUp">SIGN UP</string>
     <string name="termsAndConditions">By proceeding you also agree to <b>Human</b> <u><font fgcolor="#ffffffff">Terms of Service</font></u>
         and  <u><font fgcolor="#ffffffff">Privacy Policy</font></u>.</string>
-        <string name="hack">android:id/titleDivider</string>
-        <string name="Male">Male</string>
-        <string name="Female">Female</string>
-        <string name="Gender">Gender</string>
-        <string name="Date">Date</string>
-        <string name="login">LOG  IN</string>
-        <string name="or">or</string>
-        <string name="Password">Password</string>
-        <string name="Username">Username</string>
-        <string name="fblogin">Log in with facebook</string>
-        <string name="passForgot">Forget your password?</string>
+    <string name="hack">android:id/titleDivider</string>
+    <string name="Male">Male</string>
+    <string name="Female">Female</string>
+    <string name="Gender">Gender</string>
+    <string name="Date">Date</string>
+    <string name="login">LOG  IN</string>
+    <string name="or">or</string>
+    <string name="Password">Password</string>
+    <string name="Username">Username</string>
+    <string name="fblogin">Log in with facebook</string>
+    <string name="passForgot">Forget your password?</string>
 
-        <string name="processing">Processing...</string>
-        <string name="please_wait">Please wait...</string>
-        <string name="green_color_hack"><![CDATA[<font color=\'#1db954\'>]]></string>
-        <string name="font_tag"><![CDATA[</font>]]></string>
-        <string name="moto">Let box know your interests</string>
-        <string name="title_activity_profile_activity">Profile_activity</string>
-        <string name="action_settings">settings</string>
-        <string name="hintTestStyle"><b>Title</b></string>
-        <string name="sorting_order_time_reverse">timestampLastChangedReverse/timestamp</string>
-        <string name="description">We always have the best solution for your needs !</string>
-        <string name="token1">TREBpONlWMoDOVJ5OXTGtPhBC</string>
-        <string name="token2">HMvdu3o4PBPcJ7F6kEaLt4rKh2BTVX3EXrsR6tESy8033A7kki</string>
-        <string name="token3">1547849809-ADl0MtWuaUl7d9gFHz0woWkklSpwIRbfcHiegDt</string>
-        <string name="token4">s5g8Ow4oQM4rDaQwznDoO2q6Ra97GJbJlRRteiJwHsw4x</string>
-        <string name="title_activity_results">Results</string>
+    <string name="processing">Processing...</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="green_color_hack"><![CDATA[<font color=\'#1db954\'>]]></string>
+    <string name="font_tag"><![CDATA[</font>]]></string>
+    <string name="moto">Let Human get trained</string>
+    <string name="title_activity_profile_activity">Profile_activity</string>
+    <string name="action_settings">settings</string>
+    <string name="hintTestStyle"><b>Title</b></string>
+    <string name="sorting_order_time_reverse">timestampLastChangedReverse/timestamp</string>
+    <string name="description">We always have the best solution for your needs !</string>
+    <string name="token1">TREBpONlWMoDOVJ5OXTGtPhBC</string>
+    <string name="token2">HMvdu3o4PBPcJ7F6kEaLt4rKh2BTVX3EXrsR6tESy8033A7kki</string>
+    <string name="token3">1547849809-ADl0MtWuaUl7d9gFHz0woWkklSpwIRbfcHiegDt</string>
+    <string name="token4">s5g8Ow4oQM4rDaQwznDoO2q6Ra97GJbJlRRteiJwHsw4x</string>
+    <string name="title_activity_results">Results</string>
 
 
-    </resources>
+</resources>
 

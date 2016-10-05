@@ -18,6 +18,8 @@ import com.jiit.minor2.shubhamjoshi.human.R;
 import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Items;
 import com.jiit.minor2.shubhamjoshi.human.modals.Twitter.TwitterData;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -70,40 +72,52 @@ public class TrainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     static int lastPosition=-1;
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
         //performance optimisation
 //        Picasso.with(mContext).load(mData.get(position).getImageUrl()).into( ((ViewHolderTrain) holder).mImageView1);
-        Picasso.with(mContext)
+
+        /*Picasso.with(mContext)
                 .load(mData.get(position).getImageUrl())
-                .fit()
+                .fit().networkPolicy(NetworkPolicy.OFFLINE)
                 .centerCrop()
                 .into(((ViewHolderTrain) holder).mImageView1);
-        ((ViewHolderTrain) holder).tv2.setText(mData.get(position).getTag());
+*/
+
+        Picasso.with(mContext)
+                .load((mData.get(position).getImageUrl()))
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(((ViewHolderTrain) holder).mImageView1, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        //Try again online if cache failed
+                        Picasso.with(mContext)
+                                .load((mData.get(position).getImageUrl()))
+                                .into(((ViewHolderTrain) holder).mImageView1, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        Log.v("Picasso","Could not fetch image");
+                                    }
+                                });
+                    }
+                });
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Firebase f = new Firebase(Constants.BASE_URL);
-
-                //lets strip data
-
-                String str = mData.get(position).getTag();
-                List<String> list = new LinkedList<String>(Arrays.asList(str.split(" ")));
-                List<String> newList = new LinkedList<String>();
-                for(int i=0;i<list.size();i++)
-                {
-                    if(list.get(i).contains("#"))
-                        newList.add(list.get(i));
-
-                }
-                Log.e("SJ",newList.toString());
-
-                for(int i=0;i<newList.size();i++)
-                {
-                    f.child("interests").child(email.replace(".",",")).child(newList.get(i).replace("#"," ").replace(".","")).setValue("");
-                }
                 //  f.child("interests").child(email.replace(".",",")).push().setValue(mData.get(position).getTag());
-
+                mClickListener.onClick(view,position);
             }
         });
 
@@ -129,12 +143,13 @@ public class TrainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public class ViewHolderTrain extends RecyclerView.ViewHolder {
         protected ImageView mImageView1;
-        protected TextView tv2;
+        protected ImageView mask;
         public  ViewHolderTrain(View itemView)
         {
             super(itemView);
+            mask = (ImageView)itemView.findViewById(R.id.mask);
             mImageView1 = (ImageView) itemView.findViewById(R.id.mImageView1);
-            tv2 = (TextView)itemView.findViewById(R.id.txt2);
+
         }
     }
 

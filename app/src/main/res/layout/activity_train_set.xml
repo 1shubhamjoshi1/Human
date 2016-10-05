@@ -1,35 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#000"
     android:layout_height="match_parent"
+    android:background="@color/editTextColor"
     tools:context=".App.TrainSet">
 
-    <android.support.v7.widget.RecyclerView
+
+
+<LinearLayout
+    android:id="@+id/headerChooser"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/appMainColor"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/logout"
         android:layout_width="match_parent"
-        android:id="@+id/trainRecyclerView"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/adj15dp"
+        android:paddingLeft="@dimen/padding20dp"
+        android:text="Tap what you like"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/textSize20sp"
+        android:textStyle="bold"
+        />
 
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-
-        android:layout_alignParentBottom="true"
-        android:background="#3c8b9e">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:text="Get Started !"
-            android:textColor="#fff"
-            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="@string/moto"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"/>
 
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerChooser">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:id="@+id/trainRecyclerView"
+            android:layout_marginBottom="50dp"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </FrameLayout>
+
+    <RelativeLayout
+
+        android:id="@+id/next"
+        android:layout_width="383dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/appMainColor"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Get started !"
+            android:textColor="@android:color/white"
+
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
