@@ -20,15 +20,15 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".App.Register">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".App.TrainSet">
         </activity>
-        <activity android:name=".App.NewsFeed"> <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-
-            <category android:name="android.intent.category.LAUNCHER"/>
-        </intent-filter>
+        <activity android:name=".App.NewsFeed">
         </activity>
     </application>
 

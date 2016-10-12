@@ -16,5 +16,6 @@ public class Engine extends Application {
         Firebase.setAndroidContext(this);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
     }
 }

@@ -40,6 +40,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:design:24.2.0'
 
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'com.firebase:firebase-client-android:2.5.2+'

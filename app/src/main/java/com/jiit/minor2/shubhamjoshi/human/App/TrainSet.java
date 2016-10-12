@@ -16,6 +16,7 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.jiit.minor2.shubhamjoshi.human.Adapters.TrainAdapter;
 import com.jiit.minor2.shubhamjoshi.human.MainActivity;
+import com.jiit.minor2.shubhamjoshi.human.Pagers.VerticalViewPager;
 import com.jiit.minor2.shubhamjoshi.human.R;
 import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Twitter.TwitterData;
@@ -82,7 +83,7 @@ public class TrainSet extends AppCompatActivity {
                     r.setAdapter(trainAdapter);
                     r.setLayoutManager(new GridLayoutManager(TrainSet.this, 2));
                     Log.e("SJ", mTwitterDatas.size() + " S");
-
+                    Log.e("SSSS",email+"SSS");
                     trainAdapter.setClickListener(new TrainAdapter.ClickListener() {
 
                         @Override
@@ -109,6 +110,7 @@ public class TrainSet extends AppCompatActivity {
 
 
                             Log.e("SJ", newList.toString());
+
 
                             for (int i = 0; i < newList.size(); i++) {
                                 f.child("interests").child(email.replace(".", ",")).child(newList.get(i).replace("#", " ").replace(".", "")).setValue("");
@@ -138,7 +140,7 @@ public class TrainSet extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                startActivity(new Intent(getBaseContext(), NewsFeed.class));
             }
         });
 
@@ -168,13 +170,14 @@ public class TrainSet extends AppCompatActivity {
         }).start();
         SharedPreferences prefs = getSharedPreferences("EMAIL", MODE_PRIVATE);
         email = prefs.getString("email", null);
-
+        Log.e("SJ",email+"SS");
         if (email != null) {
             String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
             int idName = prefs.getInt("idName", 0); //0 is the default value.
         }
-
     }
+
+
 
 
 }
