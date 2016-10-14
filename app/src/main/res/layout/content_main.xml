@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:card_view="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:background="@color/editTextColor"
+              card_view:cardBackgroundColor="#2f75c6"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_gravity="center"
-        card_view:cardBackgroundColor="@color/editTextColor"
+        card_view:cardBackgroundColor="#004697"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
@@ -18,15 +18,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:background="@color/editTextColor"
+            card_view:cardBackgroundColor="#0159bf"
             android:layout_height="match_parent"
-
+            android:id="@+id/holder"
             android:orientation="vertical"
             android:weightSum="1">
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="450dp">
+                android:layout_height="450dp"
+                android:layout_weight="0.29">
             <ImageView
                 android:id="@+id/mainImage"
                 android:layout_width="match_parent"
@@ -36,8 +37,8 @@
                 android:layout_weight="0.34"/>
 
                 <android.support.design.widget.FloatingActionButton
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="right"
                     android:src="@drawable/ic_save_white_48dp"
                     android:scaleType="fitXY"
@@ -47,10 +48,11 @@
                     card_view:backgroundTint="@android:color/holo_blue_light"/>
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="20dp"
+                    android:id="@+id/postOwner"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="420dp"
 
@@ -62,8 +64,8 @@
                     android:textSize="22sp"
                     android:text="Shubham Joshi"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="420dp"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="440dp"
+                    android:layout_marginLeft="80dp"
                     android:layout_height="wrap_content"
                    />
 
@@ -74,12 +76,8 @@
            android:layout_width="match_parent"
            android:layout_marginTop="10dp"
            android:textColor="#eee"
-           android:text="hewklsdjfs dsf dsflksfjsd fdsljfsdf sdf
-           sdfdslfjdsf dsfldsj fldsjfdslf jdsflsd fsdf
-           dsfjdslfsjdfldsfjsfsdjflsdjkfsdfjdsfjdsf
-           dsfjdslfjdsfdsjlfdjsfdslfjdsjfdsjdsf
-           dsjfldskfjdsfjdsf
-           dsjfdsjlfsdfjdslfjdslfsfjdsfljfdslfdskjfdsfdsjfsdfjdsfdsfkdsf"
+           android:id="@+id/postText"
+           android:textSize="17sp"
            android:layout_height="wrap_content"/>
 
 
@@ -94,6 +92,7 @@
             android:text="You have shown interest on"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
+            android:background="@color/editTextColor"
             android:layout_gravity="bottom"
             android:textColor="@android:color/white"
             />

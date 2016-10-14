@@ -68,7 +68,7 @@ public class TrainSet extends AppCompatActivity {
                 MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
                 for (MediaEntity m : media) { //search trough your entities
                     System.out.println(m.getMediaURL()); //get your url!
-                    TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText());
+                    TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(),tweet.getCreatedAt().getTime());
                     mTwitterDatas.add(td);
                 }
                 System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());

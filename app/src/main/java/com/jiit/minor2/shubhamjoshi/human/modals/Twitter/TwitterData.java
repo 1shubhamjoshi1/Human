@@ -7,6 +7,7 @@ package com.jiit.minor2.shubhamjoshi.human.modals.Twitter;
 public class TwitterData {
     private String imageUrl;
     private String tag;
+    private long timeStamp;
     int selected;
 
     public int getSelected() {
@@ -17,11 +18,21 @@ public class TwitterData {
         this.selected = selected;
     }
 
-    public  TwitterData(String imageUrl, String tag)
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public  TwitterData(String imageUrl, String tag, long timeStamp )
     {
         this.imageUrl = imageUrl;
         this.tag = tag;
         selected = 0;
+        this.timeStamp = timeStamp;
+
 
     }
 

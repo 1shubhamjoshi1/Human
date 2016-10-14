@@ -18,7 +18,11 @@ import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Post;
 import com.jiit.minor2.shubhamjoshi.human.modals.Twitter.TwitterData;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -68,7 +72,7 @@ public class NewsFeed extends AppCompatActivity {
 
         Log.e("SJ",email);
 
-        mref.child("interests").child("joshihacked@yahoo,in").addValueEventListener(new ValueEventListener() {
+        mref.child("interests").child("joshihacked@yahoo,in").orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 HashMap<String, String> m = (HashMap<String, String>) snapshot.getValue();
@@ -151,7 +155,10 @@ public class NewsFeed extends AppCompatActivity {
                 for (twitter4j.Status tweet : tweets) {
                     MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
                     for (MediaEntity m : media) { //search trough your entities
-                        TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText());
+
+                        Date date = tweet.getCreatedAt();
+                        System.out.println("Today is " +date.getTime());
+                        TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(),date.getTime());
                         mTwitterDatas.add(td);
 
                     }
@@ -159,7 +166,9 @@ public class NewsFeed extends AppCompatActivity {
                     {
                         if(mTwitterDatas.get(i).getImageUrl()!=null)
                         {
-                            Post p = new Post(tweet.getUser().getScreenName(),mTwitterDatas.get(i).getImageUrl(),0);
+
+                            Post p = new Post(tweet.getUser().getScreenName(),mTwitterDatas.get(i).getImageUrl(),tweet.getUser().getProfileImageURL()
+                                           ,mTwitterDatas.get(i).getTag() ,-1*mTwitterDatas.get(i).getTimeStamp(),0);
                             f.push().setValue(p);
                         }
                     }

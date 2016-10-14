@@ -7,15 +7,39 @@ public class Post {
     public int type;
     public String heading;
     public String imageUrl;
+    public String imageOwnerUrl;
+    public String matter;
+    public long timestamp;
 
-    public Post(){}
+    public String getImageOwnerUrl() {
+        return imageOwnerUrl;
+    }
+
+    public void setImageOwnerUrl(String imageOwnerUrl) {
+        this.imageOwnerUrl = imageOwnerUrl;
+    }
+
+    public Post() {
+    }
 
 
-    public Post(String heading, String imageUrl, int type)
-    {
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Post(String heading, String imageUrl, String imageOwnerUrl, String matter, long timestamp, int type) {
         this.heading = heading;
+        this.matter = matter;
+        this.timestamp = timestamp;
+
+
         this.imageUrl = imageUrl;
         this.type = type;
+        this.imageOwnerUrl = imageOwnerUrl;
     }
 
     public int getType() {
@@ -24,6 +48,14 @@ public class Post {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getMatter() {
+        return matter;
+    }
+
+    public void setMatter(String matter) {
+        this.matter = matter;
     }
 
     public String getHeading() {
