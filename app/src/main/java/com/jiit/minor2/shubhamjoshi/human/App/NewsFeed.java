@@ -27,6 +27,7 @@ import java.util.Set;
 import twitter4j.MediaEntity;
 import twitter4j.Query;
 import twitter4j.QueryResult;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -42,7 +43,7 @@ public class NewsFeed extends AppCompatActivity {
     ConfigurationBuilder cb;
     List<TwitterData> mTwitterDatas = new ArrayList<>();
     Set<String> likes = new HashSet<>();
-
+    String results="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,8 @@ public class NewsFeed extends AppCompatActivity {
 
         Firebase mref = new Firebase(Constants.BASE_URL);
 
+        Log.e("SJ",email);
+
         mref.child("interests").child("joshihacked@yahoo,in").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -72,9 +75,18 @@ public class NewsFeed extends AppCompatActivity {
                 likes = m.keySet();
 
                 for (String s : likes) {
-                    datas.add("#" + s);
+                    datas.add("#" + s.trim());
+
                 }
 
+                for(int i=0;i<datas.size()-1;i++) {
+                    results += datas.get(i) + " OR ";
+                }
+
+                results += datas.get(datas.size()-1);
+
+                Log.e("results",results);
+                new Fun().execute();
 
             }
 
@@ -85,7 +97,10 @@ public class NewsFeed extends AppCompatActivity {
         });
 
 
-        new Fun().execute();
+
+
+
+
 
 
     }
@@ -114,16 +129,25 @@ public class NewsFeed extends AppCompatActivity {
             TwitterFactory tf = new TwitterFactory(cb.build());
             Twitter twitter = tf.getInstance();
 
-            Log.e("SJ", datas.toString());
+            Log.e("SJ",datas.toString());
+
 
 
             try {
-                Query query = new Query("#india");
+                Query query;
+                if(results!="")
+                query = new Query(results);
+                else
+                query= new Query("#srk");
+
+
                 query.setCount(10);
                 QueryResult result;
                 result = twitter.search(query);
                 List<twitter4j.Status> tweets = result.getTweets();
+
                 Firebase f = new Firebase(Constants.BASE_URL).child("posts1");
+               // f.removeValue();
                 for (twitter4j.Status tweet : tweets) {
                     MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
                     for (MediaEntity m : media) { //search trough your entities
@@ -131,9 +155,11 @@ public class NewsFeed extends AppCompatActivity {
                         mTwitterDatas.add(td);
 
                     }
-                    for (int i = 0; i < mTwitterDatas.size(); i++) {
-                        if (mTwitterDatas.get(i).getImageUrl() != null) {
-                            Post p = new Post(tweet.getUser().getScreenName(), mTwitterDatas.get(i).getImageUrl(), 0);
+                    for(int i=0;i<mTwitterDatas.size();i++)
+                    {
+                        if(mTwitterDatas.get(i).getImageUrl()!=null)
+                        {
+                            Post p = new Post(tweet.getUser().getScreenName(),mTwitterDatas.get(i).getImageUrl(),0);
                             f.push().setValue(p);
                         }
                     }
@@ -143,25 +169,26 @@ public class NewsFeed extends AppCompatActivity {
                 f.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
 
-                            Post post = child.getValue(Post.class);
-                            wlist.add(post);
-                            Log.e("task", post.toString());
+                            Post post = child.getValue(Post.class);  wlist.add(post);
+                            Log.e("task",post.toString());
                         }
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
 
-                                verticalViewPager.setAdapter(new VerticlePagerAdapter(NewsFeed.this, wlist));
+                                verticalViewPager.setAdapter(new VerticlePagerAdapter(NewsFeed.this,wlist));
 
 
                             }
                         });
 
 
+
                     }
+
 
 
                     @Override
@@ -169,6 +196,9 @@ public class NewsFeed extends AppCompatActivity {
 
                     }
                 });
+
+
+
 
 
                 //   Log.e("SJS",mTwitterDatas.size()+" S");

@@ -58,7 +58,7 @@ public class TrainSet extends AppCompatActivity {
 
 
         try {
-            Query query = new Query("#USA OR #India OR #dark");
+            Query query = new Query("#car OR #batman OR #swag OR #holi OR #code OR #science");
             query.setCount(100);
             QueryResult result;
             result = twitter.search(query);
@@ -111,7 +111,8 @@ public class TrainSet extends AppCompatActivity {
 
                             Log.e("SJ", newList.toString());
 
-
+                            if(email==null)
+                                email = "joshihacked@yahoo.in";
                             for (int i = 0; i < newList.size(); i++) {
                                 f.child("interests").child(email.replace(".", ",")).child(newList.get(i).replace("#", " ").replace(".", "")).setValue("");
                             }

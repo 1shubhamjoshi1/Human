@@ -26,32 +26,77 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="450dp">
             <ImageView
                 android:id="@+id/mainImage"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="400dp"
                 android:src="@drawable/ic_facebook"
                 android:scaleType="fitXY"
                 android:layout_weight="0.34"/>
 
                 <android.support.design.widget.FloatingActionButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="300dp"
-                    android:background="#0892a1"/>
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ic_save_white_48dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="370dp"
 
+                    card_view:backgroundTint="@android:color/holo_blue_light"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="420dp"
+
+                    android:src="@drawable/ic_facebook"/>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:text="Shubham Joshi"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="420dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_height="wrap_content"
+                   />
 
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_marginTop="10dp"
+           android:textColor="#eee"
+           android:text="hewklsdjfs dsf dsflksfjsd fdsljfsdf sdf
+           sdfdslfjdsf dsfldsj fldsjfdslf jdsflsd fsdf
+           dsfjdslfsjdfldsfjsfsdjflsdjkfsdfjdsfjdsf
+           dsfjdslfjdsfdsjlfdjsfdslfjdsjfdsjdsf
+           dsjfldskfjdsfjdsf
+           dsjfdsjlfsdfjdslfjdslfsfjdsfljfdslfdskjfdsfdsjfsdfjdsfdsfkdsf"
+           android:layout_height="wrap_content"/>
+
 
 
         </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hint"
+            android:text="You have shown interest on"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:layout_gravity="bottom"
+            android:textColor="@android:color/white"
+            />
 
 
 
