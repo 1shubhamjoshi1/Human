@@ -54,18 +54,19 @@ public class VerticlePagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         c=true;
         View itemView = mLayoutInflater.inflate(R.layout.content_main, container, false);
-        ImageView postImage = (ImageView)itemView.findViewById(R.id.mainImage);
-        TextView label = (TextView) itemView.findViewById(R.id.textView);
-        ImageView postOwner = (ImageView)itemView.findViewById(R.id.postOwner);
-        Picasso.with(mContext).load(mPosts.get(position).getImageOwnerUrl()).into(postOwner);
-        TextView postData = (TextView)itemView.findViewById(R.id.postText);
-        postData.setText(mPosts.get(position).getMatter());
-        label.setText(mPosts.get(position).getHeading());
-        Picasso.with(mContext).load(mPosts.get(position).getImageUrl()).into(postImage);
-        container.addView(itemView);
-        final LinearLayout holder = (LinearLayout)itemView.findViewById(R.id.holder);
 
         try{
+            ImageView postImage = (ImageView)itemView.findViewById(R.id.mainImage);
+            TextView label = (TextView) itemView.findViewById(R.id.textView);
+            ImageView postOwner = (ImageView)itemView.findViewById(R.id.postOwner);
+            Picasso.with(mContext).load(mPosts.get(position).getImageOwnerUrl()).into(postOwner);
+            TextView postData = (TextView)itemView.findViewById(R.id.postText);
+            postData.setText(mPosts.get(position).getMatter());
+            label.setText(mPosts.get(position).getHeading());
+            Picasso.with(mContext).load(mPosts.get(position).getImageUrl()).into(postImage);
+            container.addView(itemView);
+            final LinearLayout holder = (LinearLayout)itemView.findViewById(R.id.holder);
+
             String url1 = mPosts.get(position).imageUrl;
             URL ulrn = new URL(url1);
             HttpURLConnection con = (HttpURLConnection)ulrn.openConnection();

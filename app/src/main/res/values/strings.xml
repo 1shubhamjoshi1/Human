@@ -47,6 +47,11 @@
     <string name="token4">s5g8Ow4oQM4rDaQwznDoO2q6Ra97GJbJlRRteiJwHsw4x</string>
     <string name="title_activity_results">Results</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+
 
 </resources>
 

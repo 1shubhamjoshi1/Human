@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:card_view="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              card_view:cardBackgroundColor="#2f75c6"
+              android:background="@color/editTextColor"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_gravity="center"
-        card_view:cardBackgroundColor="#004697"
+        card_view:cardBackgroundColor="@color/editTextColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            card_view:cardBackgroundColor="#0159bf"
+            android:background="@color/editTextColor"
             android:layout_height="match_parent"
             android:id="@+id/holder"
             android:orientation="vertical"
@@ -26,46 +26,36 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_weight="0.29">
+                android:layout_height="428dp"
+                >
             <ImageView
                 android:id="@+id/mainImage"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="350dp"
                 android:src="@drawable/ic_facebook"
                 android:scaleType="fitXY"
                 android:layout_weight="0.34"/>
 
-                <android.support.design.widget.FloatingActionButton
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_save_white_48dp"
-                    android:scaleType="fitXY"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="370dp"
-
-                    card_view:backgroundTint="@android:color/holo_blue_light"/>
-
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/postOwner"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="420dp"
+                    android:layout_marginTop="320dp"
 
                     android:src="@drawable/ic_facebook"/>
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:textColor="#fff"
+                    android:textStyle="bold"
                     android:textSize="22sp"
                     android:text="Shubham Joshi"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="440dp"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="360dp"
+                    android:layout_marginLeft="100dp"
                     android:layout_height="wrap_content"
                    />
 
@@ -74,10 +64,11 @@
 
        <TextView
            android:layout_width="match_parent"
-           android:layout_marginTop="10dp"
+           android:paddingLeft="50dp"
            android:textColor="#eee"
+           android:text="dsjdls"
            android:id="@+id/postText"
-           android:textSize="17sp"
+           android:textSize="15sp"
            android:layout_height="wrap_content"/>
 
 
@@ -92,10 +83,27 @@
             android:text="You have shown interest on"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
-            android:background="@color/editTextColor"
             android:layout_gravity="bottom"
             android:textColor="@android:color/white"
             />
+
+        <LinearLayout
+            android:layout_width="336dp"
+            android:background="#fff"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="40dp"
+            android:layout_height="2dp"></LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_save_white_48dp"
+            android:scaleType="fitXY"
+            android:layout_marginRight="20dp"
+
+            android:layout_marginTop="320dp"
+            card_view:backgroundTint="@android:color/holo_blue_light"/>
 
 
 
