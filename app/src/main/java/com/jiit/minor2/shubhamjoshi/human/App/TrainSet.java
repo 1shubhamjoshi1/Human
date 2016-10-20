@@ -15,8 +15,7 @@ import com.firebase.client.Firebase;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.jiit.minor2.shubhamjoshi.human.Adapters.TrainAdapter;
-import com.jiit.minor2.shubhamjoshi.human.MainActivity;
-import com.jiit.minor2.shubhamjoshi.human.Pagers.VerticalViewPager;
+import com.jiit.minor2.shubhamjoshi.human.FeedStarUp;
 import com.jiit.minor2.shubhamjoshi.human.R;
 import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Twitter.TwitterData;
@@ -58,7 +57,7 @@ public class TrainSet extends AppCompatActivity {
 
 
         try {
-            Query query = new Query("#car OR #batman OR #swag OR #holi OR #code OR #science");
+            Query query = new Query("#news OR #trending");
             query.setCount(100);
             QueryResult result;
             result = twitter.search(query);
@@ -68,7 +67,7 @@ public class TrainSet extends AppCompatActivity {
                 MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
                 for (MediaEntity m : media) { //search trough your entities
                     System.out.println(m.getMediaURL()); //get your url!
-                    TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(),tweet.getCreatedAt().getTime());
+                    TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), tweet.getCreatedAt().getTime());
                     mTwitterDatas.add(td);
                 }
                 System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
@@ -83,12 +82,12 @@ public class TrainSet extends AppCompatActivity {
                     r.setAdapter(trainAdapter);
                     r.setLayoutManager(new GridLayoutManager(TrainSet.this, 2));
                     Log.e("SJ", mTwitterDatas.size() + " S");
-                    Log.e("SSSS",email+"SSS");
+                    Log.e("SSSS", email + "SSS");
                     trainAdapter.setClickListener(new TrainAdapter.ClickListener() {
 
                         @Override
                         public void onClick(View v, int pos) {
-                            Firebase f = new Firebase(Constants.BASE_URL);
+                            final Firebase f = new Firebase(Constants.BASE_URL);
 
                             //lets strip data
                             ImageView iy = (ImageView) v.findViewById(R.id.mask);
@@ -101,7 +100,7 @@ public class TrainSet extends AppCompatActivity {
                             }
                             String str = mTwitterDatas.get(pos).getTag();
                             List<String> list = new LinkedList<String>(Arrays.asList(str.split(" ")));
-                            List<String> newList = new LinkedList<String>();
+                            final List<String> newList = new LinkedList<String>();
                             for (int i = 0; i < list.size(); i++) {
                                 if (list.get(i).contains("#"))
                                     newList.add(list.get(i));
@@ -111,10 +110,17 @@ public class TrainSet extends AppCompatActivity {
 
                             Log.e("SJ", newList.toString());
 
-                            if(email==null)
+                            if (email == null)
                                 email = "joshihacked@yahoo.in";
                             for (int i = 0; i < newList.size(); i++) {
                                 f.child("interests").child(email.replace(".", ",")).child(newList.get(i).replace("#", " ").replace(".", "")).setValue("");
+                                f.child("tags").child(newList.get(i).replace("#", "").replace(".", "")).setValue("0");
+
+                                String tag = newList.get(i).replace("#", "").replace(".", "");
+
+                                for (int ii = 0; ii < tag.length(); ii++) {
+                                    f.child("suffix").child(tag).child(tag.substring(ii, tag.length())).setValue("");
+                                }
                             }
 
 
@@ -141,7 +147,7 @@ public class TrainSet extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), NewsFeed.class));
+                startActivity(new Intent(getBaseContext(), FeedStarUp.class));
             }
         });
 
@@ -171,14 +177,12 @@ public class TrainSet extends AppCompatActivity {
         }).start();
         SharedPreferences prefs = getSharedPreferences("EMAIL", MODE_PRIVATE);
         email = prefs.getString("email", null);
-        Log.e("SJ",email+"SS");
+        Log.e("SJ", email + "SS");
         if (email != null) {
             String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
             int idName = prefs.getInt("idName", 0); //0 is the default value.
         }
     }
-
-
 
 
 }

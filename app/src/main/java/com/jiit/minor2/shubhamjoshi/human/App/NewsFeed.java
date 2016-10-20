@@ -3,9 +3,11 @@ package com.jiit.minor2.shubhamjoshi.human.App;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -18,9 +20,6 @@ import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Post;
 import com.jiit.minor2.shubhamjoshi.human.modals.Twitter.TwitterData;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,36 +27,50 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import twitter4j.HashtagEntity;
 import twitter4j.MediaEntity;
 import twitter4j.Query;
 import twitter4j.QueryResult;
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class NewsFeed extends AppCompatActivity {
+import static android.content.Context.MODE_PRIVATE;
 
-
+public class NewsFeed extends Fragment {
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private String mParam1;
+    private String hint;
+    private String mParam2;
     VerticalViewPager verticalViewPager;
     ArrayList<String> datas = new ArrayList<String>();
-    private String email;
-    private ArrayList<Post> wlist = new ArrayList<>();
     ConfigurationBuilder cb;
     List<TwitterData> mTwitterDatas = new ArrayList<>();
     Set<String> likes = new HashSet<>();
-    String results="";
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_feed);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        verticalViewPager = (VerticalViewPager) findViewById(R.id.verticleViewPager);
+    String results = "";
+    private String email;
+    private ArrayList<Post> wlist = new ArrayList<>();
 
-        SharedPreferences prefs = getSharedPreferences("EMAIL", MODE_PRIVATE);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_new_feed, container, false);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("EMAIL", MODE_PRIVATE);
         String email = prefs.getString("email", "NULL");
+
 
         if (email != null) {
             String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
@@ -70,26 +83,27 @@ public class NewsFeed extends AppCompatActivity {
 
         Firebase mref = new Firebase(Constants.BASE_URL);
 
-        Log.e("SJ",email);
 
-        mref.child("interests").child("joshihacked@yahoo,in").orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
+        Log.e("SJ", email);
+
+        mref.child("interests").child("joshihacked@yahoo,in").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 HashMap<String, String> m = (HashMap<String, String>) snapshot.getValue();
                 likes = m.keySet();
 
                 for (String s : likes) {
-                    datas.add("#" + s.trim());
+                    datas.add("#" + s.trim().toLowerCase());
 
                 }
 
-                for(int i=0;i<datas.size()-1;i++) {
+                for (int i = 0; i < datas.size() - 1; i++) {
                     results += datas.get(i) + " OR ";
                 }
 
-                results += datas.get(datas.size()-1);
+                results += datas.get(datas.size() - 1);
 
-                Log.e("results",results);
+                Log.e("results", results);
                 new Fun().execute();
 
             }
@@ -99,12 +113,6 @@ public class NewsFeed extends AppCompatActivity {
                 System.out.println("The read failed: " + firebaseError.getMessage());
             }
         });
-
-
-
-
-
-
 
 
     }
@@ -133,16 +141,15 @@ public class NewsFeed extends AppCompatActivity {
             TwitterFactory tf = new TwitterFactory(cb.build());
             Twitter twitter = tf.getInstance();
 
-            Log.e("SJ",datas.toString());
-
+            Log.e("SJ", datas.toString());
 
 
             try {
                 Query query;
-                if(results!="")
-                query = new Query(results);
+                if (results != "")
+                    query = new Query(results);
                 else
-                query= new Query("#srk");
+                    query = new Query("#srk");
 
 
                 query.setCount(10);
@@ -151,53 +158,72 @@ public class NewsFeed extends AppCompatActivity {
                 List<twitter4j.Status> tweets = result.getTweets();
 
                 Firebase f = new Firebase(Constants.BASE_URL).child("posts1");
-               // f.removeValue();
-                for (twitter4j.Status tweet : tweets) {
+                // f.removeValue();
+                for (final twitter4j.Status tweet : tweets) {
                     MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
                     for (MediaEntity m : media) { //search trough your entities
 
                         Date date = tweet.getCreatedAt();
-                        System.out.println("Today is " +date.getTime());
-                        TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(),date.getTime());
+                        System.out.println("Today is " + date.getTime());
+
+                        Firebase ff = new Firebase(Constants.BASE_URL);
+                        ff.child("interests").child("joshihacked@yahoo,in").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                HashtagEntity[] h = tweet.getHashtagEntities();
+                                for (int i = 0; i < h.length; i++) {
+                                    if (datas.contains("#" + h[i].getText().toLowerCase())) {
+//                                        Log.e("SJSJSJSJ",h[i].getText().toLowerCase());
+                                        hint = h[i].getText().toLowerCase();
+                                    }
+                                    Log.e("CHECK", h[i].getText());
+                                    Log.e("DATA", datas.toString());
+                                }
+
+                                Log.e("SJ", dataSnapshot.getValue() + " " + dataSnapshot.getKey());
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                        TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), date.getTime());
                         mTwitterDatas.add(td);
 
                     }
-                    for(int i=0;i<mTwitterDatas.size();i++)
-                    {
-                        if(mTwitterDatas.get(i).getImageUrl()!=null)
-                        {
-
-                            Post p = new Post(tweet.getUser().getScreenName(),mTwitterDatas.get(i).getImageUrl(),tweet.getUser().getProfileImageURL()
-                                           ,mTwitterDatas.get(i).getTag() ,-1*mTwitterDatas.get(i).getTimeStamp(),0);
+                    for (int i = 0; i < mTwitterDatas.size(); i++) {
+                        if (mTwitterDatas.get(i).getImageUrl() != null) {
+                           // f.removeValue();
+                            Post p = new Post(tweet.getUser().getScreenName(), mTwitterDatas.get(i).getImageUrl(), tweet.getUser().getProfileImageURL()
+                                    , mTwitterDatas.get(i).getTag(), -1 * mTwitterDatas.get(i).getTimeStamp(), 0);
                             f.push().setValue(p);
                         }
                     }
                     System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
                 }
 
-                f.addValueEventListener(new ValueEventListener() {
+                f.orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                            Post post = child.getValue(Post.class);  wlist.add(post);
-                            Log.e("task",post.toString());
+                            Post post = child.getValue(Post.class);
+                            wlist.add(post);
+                            Log.e("task", post.toString());
                         }
 
-                        runOnUiThread(new Runnable() {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
-                                verticalViewPager.setAdapter(new VerticlePagerAdapter(NewsFeed.this,wlist));
-
-
+                                verticalViewPager = (VerticalViewPager) getActivity().findViewById(R.id.verticleViewPager);
+                                if(wlist!=null)
+                                verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity().getBaseContext(), wlist, hint));
                             }
                         });
 
 
-
                     }
-
 
 
                     @Override
@@ -205,9 +231,6 @@ public class NewsFeed extends AppCompatActivity {
 
                     }
                 });
-
-
-
 
 
                 //   Log.e("SJS",mTwitterDatas.size()+" S");

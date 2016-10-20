@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<com.jiit.minor2.shubhamjoshi.human.CustomDrawer.FullDrawerLayout
+<FrameLayout
     android:id="@+id/drawerLayout"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
-
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:id="@+id/mtoolbar"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.Toolbar>
 
     <com.jiit.minor2.shubhamjoshi.human.Pagers.VerticalViewPager
         android:id="@+id/verticleViewPager"
@@ -26,16 +17,5 @@
         xmlns:android="http://schemas.android.com/apk/res/android"/>
 
 
-
-
-
-    <fragment
-        android:layout_width="match_parent"
-        app:layout="@layout/fragment_nav_bar"
-        android:id="@+id/fragmentnavBar"
-        android:layout_gravity="start"
-        android:layout_height="match_parent"
-        class="com.jiit.minor2.shubhamjoshi.human.NavBar"
-        tools:layout="@layout/fragment_nav_bar"></fragment>
-</com.jiit.minor2.shubhamjoshi.human.CustomDrawer.FullDrawerLayout>
+</FrameLayout>
 
