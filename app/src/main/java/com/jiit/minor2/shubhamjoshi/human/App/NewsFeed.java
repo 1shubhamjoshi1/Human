@@ -221,8 +221,9 @@ public class NewsFeed extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 verticalViewPager = (VerticalViewPager) getActivity().findViewById(R.id.verticleViewPager);
-                                if(wlist!=null)
+                                if(wlist!=null && verticalViewPager!=null)
                                 verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity().getBaseContext(), wlist, hint));
                             }
                         });
