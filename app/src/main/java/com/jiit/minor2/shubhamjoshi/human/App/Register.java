@@ -132,8 +132,8 @@ public class Register extends AppCompatActivity {
 
         // if changing configurations, stop tracking firebase session.
 
-        if(mAuthStateListener!=null)
-        mFirebaseRef.removeAuthStateListener(mAuthStateListener);
+        if (mAuthStateListener != null)
+            mFirebaseRef.removeAuthStateListener(mAuthStateListener);
     }
 
 

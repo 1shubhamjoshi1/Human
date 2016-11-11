@@ -80,7 +80,7 @@ public class TrainSet extends AppCompatActivity {
                     TrainAdapter trainAdapter = new TrainAdapter(TrainSet.this, mTwitterDatas);
 
                     r.setAdapter(trainAdapter);
-                    r.setLayoutManager(new GridLayoutManager(TrainSet.this, 2));
+                    r.setLayoutManager(new GridLayoutManager(TrainSet.this, 3));
                     Log.e("SJ", mTwitterDatas.size() + " S");
                     Log.e("SSSS", email + "SSS");
                     trainAdapter.setClickListener(new TrainAdapter.ClickListener() {

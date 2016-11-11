@@ -50,6 +50,7 @@ public class NewsFeed extends Fragment {
     List<TwitterData> mTwitterDatas = new ArrayList<>();
     Set<String> likes = new HashSet<>();
     String results = "";
+    HashSet<String> set = new HashSet<>();
     private String email;
     private ArrayList<Post> wlist = new ArrayList<>();
 
@@ -197,7 +198,11 @@ public class NewsFeed extends Fragment {
                            // f.removeValue();
                             Post p = new Post(tweet.getUser().getScreenName(), mTwitterDatas.get(i).getImageUrl(), tweet.getUser().getProfileImageURL()
                                     , mTwitterDatas.get(i).getTag(), -1 * mTwitterDatas.get(i).getTimeStamp(), 0);
-                            f.push().setValue(p);
+
+                            if(!set.contains(p.getImageUrl())) {
+                                f.push().setValue(p);
+                                set.add(p.getImageUrl());
+                            }
                         }
                     }
                     System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());

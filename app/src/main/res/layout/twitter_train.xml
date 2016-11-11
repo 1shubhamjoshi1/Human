@@ -9,16 +9,16 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_margin="2dp"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:scaleType="centerCrop"
             android:id="@+id/mImageView1"
             android:background="#000"
             />
         <ImageView
             android:layout_margin="2dp"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:scaleType="centerCrop"
             android:id="@+id/mask"
             android:visibility="invisible"
