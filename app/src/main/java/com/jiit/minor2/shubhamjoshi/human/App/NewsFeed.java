@@ -222,20 +222,20 @@ public class NewsFeed extends Fragment {
                             Log.e("task", post.toString());
                         }
 
-                        if(getActivity() == null)
-                            return;
 
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
 
-                                verticalViewPager = (VerticalViewPager) getActivity().findViewById(R.id.verticleViewPager);
-                                if(wlist!=null && verticalViewPager!=null)
-                                verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity().getBaseContext(), wlist, hint));
-                            }
-                        });
+                                    verticalViewPager = (VerticalViewPager) getActivity().findViewById(R.id.verticleViewPager);
+                                    if (wlist != null && verticalViewPager != null)
+                                        verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity().getBaseContext(), wlist, hint));
+                                }
+                            });
 
 
+                        }
                     }
 
 
