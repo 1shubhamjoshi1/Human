@@ -14,6 +14,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.jiit.minor2.shubhamjoshi.human.Adapters.VerticlePagerAdapter;
+import com.jiit.minor2.shubhamjoshi.human.Clustering.Kosaraju.Kosaraju;
 import com.jiit.minor2.shubhamjoshi.human.Pagers.VerticalViewPager;
 import com.jiit.minor2.shubhamjoshi.human.R;
 import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
@@ -199,6 +200,9 @@ public class NewsFeed extends Fragment {
                             Post p = new Post(tweet.getUser().getScreenName(), mTwitterDatas.get(i).getImageUrl(), tweet.getUser().getProfileImageURL()
                                     , mTwitterDatas.get(i).getTag(), -1 * mTwitterDatas.get(i).getTimeStamp(), 0);
 
+                           // Kosaraju k = new Kosaraju();
+                            int []vis = new int[100];
+                           // k.DFS(null,1,null,null);
                             if(!set.contains(p.getImageUrl())) {
                                 f.push().setValue(p);
                                 set.add(p.getImageUrl());
@@ -217,6 +221,9 @@ public class NewsFeed extends Fragment {
                             wlist.add(post);
                             Log.e("task", post.toString());
                         }
+
+                        if(getActivity() == null)
+                            return;
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
