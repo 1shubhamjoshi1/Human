@@ -78,8 +78,8 @@ public class TrainSet extends AppCompatActivity {
                 public void run() {
                     RecyclerView r = (RecyclerView) findViewById(R.id.trainRecyclerView);
                     TrainAdapter trainAdapter = new TrainAdapter(TrainSet.this, mTwitterDatas);
-
                     r.setAdapter(trainAdapter);
+
                     r.setLayoutManager(new GridLayoutManager(TrainSet.this, 3));
                     Log.e("SJ", mTwitterDatas.size() + " S");
                     Log.e("SSSS", email + "SSS");
@@ -184,5 +184,8 @@ public class TrainSet extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
