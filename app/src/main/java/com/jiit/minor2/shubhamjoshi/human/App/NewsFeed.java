@@ -13,6 +13,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.jiit.minor2.shubhamjoshi.human.Adapters.VerticlePagerAdapter;
 import com.jiit.minor2.shubhamjoshi.human.Clustering.Kosaraju.Kosaraju;
 import com.jiit.minor2.shubhamjoshi.human.MagicPosts;
@@ -71,6 +73,13 @@ public class NewsFeed extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+        /*checking watsson */
+        ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
+        service.setUsernameAndPassword("96035944-5998-4fad-a145-b44f21475b97", "vFjOzNGQvuBw");
+
+
 
         SharedPreferences prefs = getActivity().getSharedPreferences("EMAIL", MODE_PRIVATE);
         String email = prefs.getString("email", "NULL");
@@ -135,6 +144,26 @@ public class NewsFeed extends Fragment {
         protected Void doInBackground(Void... params) {
             ConfigurationBuilder cb = new ConfigurationBuilder();
             //  likeQuery="#fun OR #cool OR #srk OR #shubham OR #india";
+
+            /*watson */
+
+
+            String text =
+                    "I know the times are difficult! Our sales have been "
+                            + "disappointing for the past three quarters for our data analytics "
+                            + "product suite. We have a competitive data analytics product "
+                            + "suite in the industry. But we need to do our job selling it! "
+                            + "We need to acknowledge and fix our sales challenges. "
+                            + "We can’t blame the economy for our lack of execution! "
+                            + "We are missing critical sales opportunities. "
+                            + "Our product is in no way inferior to the competitor products. "
+                            + "Our clients are hungry for analytical tools to improve their "
+                            + "business outcomes. Economy has nothing to do with it.";
+
+// Call the service and get the tone
+            ToneAnalysis tone = service.getTone(text, null).execute();
+            System.out.println(tone);
+
 
             cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true)
