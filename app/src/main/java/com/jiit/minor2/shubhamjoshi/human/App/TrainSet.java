@@ -163,14 +163,14 @@ public class TrainSet extends AppCompatActivity {
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
-            System.exit(-1);
+           // System.exit(-1);
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new FunAsyncTask().execute();
+       // new FunAsyncTask().execute();
 
         setContentView(R.layout.activity_train_set);
         RelativeLayout next = (RelativeLayout) findViewById(R.id.next);
@@ -218,16 +218,16 @@ public class TrainSet extends AppCompatActivity {
         super.onResume();
     }
 
-    class FunAsyncTask extends AsyncTask<Void,Void,Void>{
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                System.out.println("SHUBHAM TEST " + post("",json));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
+//    class FunAsyncTask extends AsyncTask<Void,Void,Void>{
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            try {
+//                //System.out.println("SHUBHAM TEST " + post("",json));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return null;
+//        }
+//    }
 }
