@@ -51,6 +51,7 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:onClick="funda"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/ic_stars_white_48dp"
                 />

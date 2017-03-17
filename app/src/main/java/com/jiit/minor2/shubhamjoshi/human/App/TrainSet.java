@@ -2,6 +2,7 @@ package com.jiit.minor2.shubhamjoshi.human.App;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.github.amlcurran.showcaseview.ShowcaseView;
@@ -20,12 +22,19 @@ import com.jiit.minor2.shubhamjoshi.human.R;
 import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Twitter.TwitterData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import twitter4j.MediaEntity;
+import twitter4j.Paging;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -36,6 +45,22 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TrainSet extends AppCompatActivity {
 
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
+
+
+    String json = "{}";
+    OkHttpClient client = new OkHttpClient();
+    String post(String url, String json) throws IOException {
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url("https://netspark-nude-detect-v1.p.mashape.com/url/{http://jiitminor128.netai.net/pictures/11.JPG}").addHeader("X-Mashape-Key", "8P2V8qTDx0msha4LkSs4ah6ABHsqp1Zln8Kjsn2KNBsh6EK9Y6")
+                .addHeader("Accept", "application/json")
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
     String email;
 
     RecyclerView mRecyclerView;
@@ -44,7 +69,7 @@ public class TrainSet extends AppCompatActivity {
     ConfigurationBuilder cb;
     List<TwitterData> mTwitterDatas = new ArrayList<>();
 
-    public void startUp() {
+    public void startUp() throws IOException {
         cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
                 .setOAuthConsumerKey("t437OESAlLD5BWcbDJbkh7SC6")
@@ -56,18 +81,22 @@ public class TrainSet extends AppCompatActivity {
         Twitter twitter = new TwitterFactory(cb.build()).getInstance();
 
 
+
         try {
-            Query query = new Query("#news OR #trending");
+            Query query = new Query("#birds");
             query.setCount(100);
             QueryResult result;
             result = twitter.search(query);
             List<Status> tweets = result.getTweets();
 
+            Paging paging = new Paging(1, 100);
+            List<Status> statuses = twitter.getUserTimeline("ranveerbrar",paging);
             for (Status tweet : tweets) {
                 MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
                 for (MediaEntity m : media) { //search trough your entities
                     System.out.println(m.getMediaURL()); //get your url!
-                    TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), tweet.getCreatedAt().getTime());
+
+                    TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), tweet.getCreatedAt().getTime(),"trending");
                     mTwitterDatas.add(td);
                 }
                 System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
@@ -141,6 +170,7 @@ public class TrainSet extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new FunAsyncTask().execute();
 
         setContentView(R.layout.activity_train_set);
         RelativeLayout next = (RelativeLayout) findViewById(R.id.next);
@@ -157,12 +187,7 @@ public class TrainSet extends AppCompatActivity {
 
 
     void showCase() {
-        ShowcaseView.Builder showCaseBuilder = new ShowcaseView.Builder(this);
 
-        showCaseBuilder.setTarget(Target.NONE);
-        showCaseBuilder.setContentTitle("Lets get you started");
-        showCaseBuilder.setContentText("Let our system get trained to know\n more about you!!");
-        showCaseBuilder.build();
     }
 
     @Override
@@ -172,7 +197,11 @@ public class TrainSet extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                startUp();
+                try {
+                    startUp();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
         SharedPreferences prefs = getSharedPreferences("EMAIL", MODE_PRIVATE);
@@ -187,5 +216,18 @@ public class TrainSet extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    class FunAsyncTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                System.out.println("SHUBHAM TEST " + post("",json));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

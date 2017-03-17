@@ -32,21 +32,35 @@ android {
 
 
 
+android {
+    useLibrary 'org.apache.http.legacy'
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     compile files('libs/twitter4j-core-4.0.4.jar')
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.android.support:palette-v7:24.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:24.2.1'
-
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'com.firebase:firebase-client-android:2.5.2'
+    compile 'com.android.support:palette-v7:24.1.1'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.firebaseui:firebase-ui:0.3.1'
+    compile 'com.ibm.watson.developer_cloud:java-sdk:3.0.1'
+
     testCompile 'junit:junit:4.12'
+    compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.1'
+
 }
+apply plugin: 'com.google.gms.google-services'

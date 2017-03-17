@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "507854496028",
+    "firebase_url": "https://humanjiit.firebaseio.com",
+    "project_id": "humanjiit",
+    "storage_bucket": "humanjiit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507854496028:android:c210a7658ff640ae",
+        "android_client_info": {
+          "package_name": "com.jiit.minor2.shubhamjoshi.human"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507854496028-ctlkaj50ij55ce0onk784m2ce64m0f77.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW14xpiHsfrl_iMsYyIyfsraIa7xK_pvM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

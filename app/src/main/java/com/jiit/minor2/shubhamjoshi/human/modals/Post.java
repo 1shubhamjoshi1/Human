@@ -11,6 +11,16 @@ public class Post {
     public String matter;
     public long timestamp;
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String tag;
+
     public String getImageOwnerUrl() {
         return imageOwnerUrl;
     }
@@ -31,12 +41,12 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public Post(String heading, String imageUrl, String imageOwnerUrl, String matter, long timestamp, int type) {
+    public Post(String heading, String imageUrl, String imageOwnerUrl, String matter, long timestamp, int type,String tag) {
         this.heading = heading;
         this.matter = matter;
         this.timestamp = timestamp;
 
-
+        this.tag = tag;
         this.imageUrl = imageUrl;
         this.type = type;
         this.imageOwnerUrl = imageOwnerUrl;

@@ -115,10 +115,8 @@ public class Register extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-            /* Otherwise, it's probably the request by the Facebook login button, keep track of the session */
-        mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
-
+        mFacebookCallbackManager.onActivityResult(requestCode,
+                resultCode, data);
     }
 //246876
 
@@ -177,7 +175,9 @@ public class Register extends AppCompatActivity {
                                     if (data.has("picture")) {
                                         profileImage = data.getJSONObject("picture").getJSONObject("data").getString("url");
                                         email = data.getString("email");
-
+                                        SharedPreferences.Editor editor = getSharedPreferences("EMAIL", MODE_PRIVATE).edit();
+                                        editor.putString("email", email);
+                                        editor.commit();
                                         Firebase branchUser = new Firebase(Constants.BASE_URL + "/Users");
 
                                         branchUser.child((email != null) ? email.replace('.', ',') : "a").setValue(new User("sds", email, profileImage));
@@ -262,9 +262,7 @@ public class Register extends AppCompatActivity {
             //  mAuthProgressDialog.hide();
             Log.i(TAG, provider + " auth successful");
 
-            SharedPreferences.Editor editor = getSharedPreferences("EMAIL", MODE_PRIVATE).edit();
-            editor.putString("email", email);
-            editor.commit();
+
             startActivity(new Intent(Register.this, TrainSet.class));
             setAuthenticatedUser(authData);
         }

@@ -25,16 +25,16 @@ public class VerticlePagerAdapter extends PagerAdapter {
 
 
     Context mContext;
-    String hintt;
+    ArrayList<String> hintt;
     LayoutInflater mLayoutInflater;
     ArrayList<Post> mPosts;
 
-    public VerticlePagerAdapter(Context context, ArrayList<Post> posts,String hintt) {
+    public VerticlePagerAdapter(Context context, ArrayList<Post> posts,ArrayList<String> hintt) {
         mContext = context;
 
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        mPosts = posts;
+        this.mPosts = posts;
         this.hintt = hintt;
 
     }
@@ -43,7 +43,7 @@ public class VerticlePagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mPosts.size();
+        return 70;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class VerticlePagerAdapter extends PagerAdapter {
         Picasso.with(mContext).load(mPosts.get(position).getImageUrl()).into(postImage);
         container.addView(itemView);
         final TextView hint = (TextView) itemView.findViewById(R.id.hint);
-        hint.setText("You have shown interest in "+hintt);
+        hint.setText("You have shown interest in "+mPosts.get(position).getTag());
         Picasso.with(mContext).load(mPosts.get(position).getImageUrl())
                 .transform(new Blur(mContext, 50)).fit().centerCrop().into((ImageView) itemView.findViewById(R.id.blurBg));
 

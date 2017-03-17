@@ -8,6 +8,16 @@ public class TwitterData {
     private String imageUrl;
     private String tag;
     private long timeStamp;
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
     int selected;
 
     public int getSelected() {
@@ -26,12 +36,13 @@ public class TwitterData {
         this.timeStamp = timeStamp;
     }
 
-    public  TwitterData(String imageUrl, String tag, long timeStamp )
+    public  TwitterData(String imageUrl, String tag, long timeStamp,String data )
     {
         this.imageUrl = imageUrl;
         this.tag = tag;
         selected = 0;
         this.timeStamp = timeStamp;
+        this.data = data;
 
 
     }

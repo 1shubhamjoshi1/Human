@@ -15,12 +15,14 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.jiit.minor2.shubhamjoshi.human.Adapters.VerticlePagerAdapter;
 import com.jiit.minor2.shubhamjoshi.human.Clustering.Kosaraju.Kosaraju;
+import com.jiit.minor2.shubhamjoshi.human.MagicPosts;
 import com.jiit.minor2.shubhamjoshi.human.Pagers.VerticalViewPager;
 import com.jiit.minor2.shubhamjoshi.human.R;
 import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Post;
 import com.jiit.minor2.shubhamjoshi.human.modals.Twitter.TwitterData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class NewsFeed extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
-    private String hint;
+    private ArrayList<String> hint=new ArrayList<>();
     private String mParam2;
     VerticalViewPager verticalViewPager;
     ArrayList<String> datas = new ArrayList<String>();
@@ -54,7 +56,7 @@ public class NewsFeed extends Fragment {
     HashSet<String> set = new HashSet<>();
     private String email;
     private ArrayList<Post> wlist = new ArrayList<>();
-
+    private ArrayList<Post> nlist = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,7 +107,7 @@ public class NewsFeed extends Fragment {
 
                 results += datas.get(datas.size() - 1);
 
-                Log.e("results", results);
+               // Log.e("results", results);
                 new Fun().execute();
 
             }
@@ -143,7 +145,7 @@ public class NewsFeed extends Fragment {
             TwitterFactory tf = new TwitterFactory(cb.build());
             Twitter twitter = tf.getInstance();
 
-            Log.e("SJ", datas.toString());
+           // Log.e("SJ", datas.toString());
 
 
             try {
@@ -154,7 +156,7 @@ public class NewsFeed extends Fragment {
                     query = new Query("#srk");
 
 
-                query.setCount(10);
+                query.setCount(100);
                 QueryResult result;
                 result = twitter.search(query);
                 List<twitter4j.Status> tweets = result.getTweets();
@@ -169,20 +171,24 @@ public class NewsFeed extends Fragment {
                         System.out.println("Today is " + date.getTime());
 
                         Firebase ff = new Firebase(Constants.BASE_URL);
+                        final String[] rr = new String[1];
+                        rr[0]="trends";
                         ff.child("interests").child("joshihacked@yahoo,in").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 HashtagEntity[] h = tweet.getHashtagEntities();
                                 for (int i = 0; i < h.length; i++) {
                                     if (datas.contains("#" + h[i].getText().toLowerCase())) {
-//                                        Log.e("SJSJSJSJ",h[i].getText().toLowerCase());
-                                        hint = h[i].getText().toLowerCase();
+                                      // Log.e("Result is",h[i].getText().toLowerCase());
+                                        hint.add(h[i].getText().toLowerCase());
+                                        rr[0] = h[i].getText().toLowerCase();
                                     }
-                                    Log.e("CHECK", h[i].getText());
-                                    Log.e("DATA", datas.toString());
+                                    rr[0]=h[i].getText().toLowerCase();
+                                   // Log.e("CHECK", h[i].getText());
+                                   // Log.e("DATA", datas.toString());
                                 }
 
-                                Log.e("SJ", dataSnapshot.getValue() + " " + dataSnapshot.getKey());
+                                //Log.e("SJ", dataSnapshot.getValue() + " " + dataSnapshot.getKey());
                             }
 
                             @Override
@@ -190,15 +196,16 @@ public class NewsFeed extends Fragment {
 
                             }
                         });
-                        TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), date.getTime());
+                        TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), date.getTime(),rr[0]);
                         mTwitterDatas.add(td);
 
                     }
                     for (int i = 0; i < mTwitterDatas.size(); i++) {
                         if (mTwitterDatas.get(i).getImageUrl() != null) {
                            // f.removeValue();
+
                             Post p = new Post(tweet.getUser().getScreenName(), mTwitterDatas.get(i).getImageUrl(), tweet.getUser().getProfileImageURL()
-                                    , mTwitterDatas.get(i).getTag(), -1 * mTwitterDatas.get(i).getTimeStamp(), 0);
+                                    , mTwitterDatas.get(i).getTag(), -1 * mTwitterDatas.get(i).getTimeStamp(), 0,mTwitterDatas.get(i).getData());
 
                            // Kosaraju k = new Kosaraju();
                             int []vis = new int[100];
@@ -209,6 +216,7 @@ public class NewsFeed extends Fragment {
                             }
                         }
                     }
+
                     System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
                 }
 
@@ -219,7 +227,7 @@ public class NewsFeed extends Fragment {
 
                             Post post = child.getValue(Post.class);
                             wlist.add(post);
-                            Log.e("task", post.toString());
+                           // Log.e("task", post.toString());
                         }
 
 
@@ -229,8 +237,22 @@ public class NewsFeed extends Fragment {
                                 public void run() {
 
                                     verticalViewPager = (VerticalViewPager) getActivity().findViewById(R.id.verticleViewPager);
+
+                                    if(wlist!=null)
+                                        try {
+                                            MagicPosts magicPosts = new MagicPosts(wlist,getResources());
+                                            magicPosts.generateHashColors();
+                                            nlist = magicPosts.getPost();
+                                            //intk = nlist.size();
+
+
+
+                                       //     Log.e("Originial ",nlist.size()+" "+magicPosts.getSize());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                     if (wlist != null && verticalViewPager != null)
-                                        verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity().getBaseContext(), wlist, hint));
+                                        verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity().getBaseContext(), nlist, hint));
                                 }
                             });
 
