@@ -42,6 +42,11 @@
                     android:layout_height="428dp"
 
                     >
+
+                    <io.codetail.widget.RevealFrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
                     <ImageView
                         android:id="@+id/mainImage"
                         android:layout_width="match_parent"
@@ -49,7 +54,7 @@
                         android:src="@drawable/ic_facebook"
                         android:scaleType="fitXY"
                         android:layout_weight="0.34"/>
-
+                    </io.codetail.widget.RevealFrameLayout>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="80dp"

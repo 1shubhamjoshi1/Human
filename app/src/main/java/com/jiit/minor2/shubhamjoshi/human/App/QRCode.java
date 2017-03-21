@@ -23,6 +23,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import io.github.hendraanggrian.circularrevealanimator.CircularRevealAnimator;
+
 public class QRCode extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
     private QRCodeReaderView mydecoderview;
@@ -49,7 +51,12 @@ public class QRCode extends AppCompatActivity implements QRCodeReaderView.OnQRCo
 
         Log.e("SHubham oncreate","SJ");
 
+
+
     }
+
+
+
 
     private void sendToServer(String accessToken, String qrStr) {
 

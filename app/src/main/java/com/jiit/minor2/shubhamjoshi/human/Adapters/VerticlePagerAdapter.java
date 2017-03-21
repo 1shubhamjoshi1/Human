@@ -27,6 +27,8 @@ import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 
+import io.github.hendraanggrian.circularrevealanimator.CircularRevealAnimator;
+
 public class VerticlePagerAdapter extends PagerAdapter {
 
 

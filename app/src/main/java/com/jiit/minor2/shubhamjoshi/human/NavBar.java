@@ -1,15 +1,19 @@
 package com.jiit.minor2.shubhamjoshi.human;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.jiit.minor2.shubhamjoshi.human.Adapters.GetIp;
@@ -18,6 +22,7 @@ import com.jiit.minor2.shubhamjoshi.human.CustomDrawer.FullDrawerLayout;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.github.hendraanggrian.circularrevealanimator.CircularRevealAnimator;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -79,6 +84,8 @@ public class NavBar extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(),QRCode.class));
+               // CircularRevealAnimator.of(getActivity()).startActivity(new Intent(container.getContext(), GetIp.class), R.id.ip_tag);
+
             }
         });
         CircleImageView fb = (CircleImageView)v.findViewById(R.id.userImg);
@@ -89,11 +96,16 @@ public class NavBar extends Fragment {
         if (pImage!= null) {
             Picasso.with(v.getContext()).load(pImage).into(fb);
         }
+
+
+
        return v;
     }
 
 
-
-
-
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        CircularRevealAnimator.of(getActivity()).reveal(R.id.head,0,0);
+    }
 }
