@@ -53,7 +53,7 @@ public class QRCode extends AppCompatActivity implements QRCodeReaderView.OnQRCo
         HttpClient httpClient = new DefaultHttpClient();
 
 
-        HttpPost httpPost = new HttpPost("http://192.168.1.:1000/Human-Web-/gencode/auth");
+        HttpPost httpPost = new HttpPost("http://192.168.1.9:1000/Human-Web-/gencode/auth");
 
         String jsonStr = "{\"uuid\":\"" + qrStr + "\",\"access_token\":\"" + accessToken + "\"}";
 

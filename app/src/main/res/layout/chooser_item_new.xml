@@ -15,7 +15,7 @@
 
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/choicePhoto"
             android:layout_width="140dp"
             android:layout_height="110dp"
             android:contentDescription="third"

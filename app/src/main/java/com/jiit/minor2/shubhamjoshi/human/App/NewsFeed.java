@@ -14,7 +14,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.jiit.minor2.shubhamjoshi.human.Adapters.VerticlePagerAdapter;
 import com.jiit.minor2.shubhamjoshi.human.MagicPosts;
 import com.jiit.minor2.shubhamjoshi.human.Pagers.VerticalViewPager;
@@ -67,7 +66,7 @@ public class NewsFeed extends Fragment {
     }
 
     ToneAnalyzer service;
-
+    Firebase mref;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +76,9 @@ public class NewsFeed extends Fragment {
         }
 
 
-        /*checking watsson */
         service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
         service.setUsernameAndPassword("96035944-5998-4fad-a145-b44f21475b97", "vFjOzNGQvuBw");
+        /*checking watsson */
 
 
         SharedPreferences prefs = getActivity().getSharedPreferences("EMAIL", MODE_PRIVATE);
@@ -95,17 +94,17 @@ public class NewsFeed extends Fragment {
         //data of email got
 
 
-        Firebase mref = new Firebase(Constants.BASE_URL);
+         mref = new Firebase(Constants.BASE_URL);
 
 
-       // Log.e("SJ", email);
+        // Log.e("SJ", email);
 
         mref.child("interests").child("joshihacked@yahoo,in").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 HashMap<String, String> m = (HashMap<String, String>) snapshot.getValue();
-                if(m!=null)
-                likes = m.keySet();
+                if (m != null)
+                    likes = m.keySet();
 
                 for (String s : likes) {
                     datas.add("#" + s.trim().toLowerCase());
@@ -125,11 +124,34 @@ public class NewsFeed extends Fragment {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-               // System.out.println("The read failed: " + firebaseError.getMessage());
+                // System.out.println("The read failed: " + firebaseError.getMessage());
             }
         });
 
 
+
+        //new Watson().execute();
+        Firebase f= new Firebase(Constants.BASE_URL).child("posts1");
+        f.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                    Post p = child.getValue(Post.class);
+                    String textForWatson = p.getMatter();
+                    Log.e("Text fed to watson", textForWatson);
+
+                    // Call the service and get the tone
+                   new Watson(textForWatson).execute();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
 
@@ -150,29 +172,19 @@ public class NewsFeed extends Fragment {
             /*watson */
 
 
-            String text =
-                    "I know the times are difficult! Our sales have been "
-                            + "disappointing for the past three quarters for our data analytics "
-                            + "product suite. We have a competitive data analytics product "
-                            + "suite in the industry. But we need to do our job selling it! "
-                            + "We need to acknowledge and fix our sales challenges. "
-                            + "We can’t blame the economy for our lack of execution! "
-                            + "We are missing critical sales opportunities. "
-                            + "Our product is in no way inferior to the competitor products. "
-                            + "Our clients are hungry for analytical tools to improve their "
-                            + "business outcomes. Economy has nothing to do with it.";
+
 
 // Call the service and get the tone
 
-            String k1,k2,k3,k4;
-            boolean flag= true;
-            if(flag) {
+            String k1, k2, k3, k4;
+            //flag to use when api call limit ends
+            boolean flag = true;
+            if (!flag) {
                 k1 = "eZWxRwbfyA6bp6c2t1DpZKOG1";
                 k2 = "L77bYBCXNFEXLi425Pe3w28Ls7wN1dz3f5RdXmZYfwp43BB2ps";
                 k3 = "842827876319879169-IMDtO4cctBuUSFB6YT9gIB55U2IhPcB";
                 k4 = "mj3PWT5OEzKCFnpTFApH4TiFPlnGxaKFQOGFGUjwgOHQ2";
-            }else
-            {
+            } else {
                 k1 = "t437OESAlLD5BWcbDJbkh7SC6";
                 k2 = "YpKHZJritr8nhDYfuMWq7nq0Y8oFPmXja9Y9Zjz2n5X2JFfosS";
                 k3 = "1547849809-I3uRGjJpRyppymN3bH0XAKRbfMpPTVIYw1i68zJ";
@@ -199,7 +211,7 @@ public class NewsFeed extends Fragment {
                     query = new Query("#srk");
 
 
-                query.setCount(10);
+                query.setCount(50);
                 QueryResult result;
                 result = twitter.search(query);
                 List<twitter4j.Status> tweets = result.getTweets();
@@ -211,7 +223,7 @@ public class NewsFeed extends Fragment {
                     for (MediaEntity m : media) { //search trough your entities
 
                         Date date = tweet.getCreatedAt();
-                      //  System.out.println("Today is " + date.getTime());
+                        //  System.out.println("Today is " + date.getTime());
 
                         Firebase ff = new Firebase(Constants.BASE_URL);
                         final String[] rr = new String[1];
@@ -227,8 +239,7 @@ public class NewsFeed extends Fragment {
                                         rr[0] = h[i].getText().toLowerCase();
                                     }
                                     rr[0] = h[i].getText().toLowerCase();
-                                    // Log.e("CHECK", h[i].getText());
-                                    // Log.e("DATA", datas.toString());
+
                                 }
 
                                 //Log.e("SJ", dataSnapshot.getValue() + " " + dataSnapshot.getKey());
@@ -245,16 +256,10 @@ public class NewsFeed extends Fragment {
                     }
                     for (int i = 0; i < mTwitterDatas.size(); i++) {
                         if (mTwitterDatas.get(i).getImageUrl() != null) {
-                            // f.removeValue();
-
-
-                            String Text = mTwitterDatas.get(i).getData();
-
-                          //  ToneAnalysis tone = service.getTone(text, null).execute();
-
 
                             Post p = new Post(tweet.getUser().getScreenName(), mTwitterDatas.get(i).getImageUrl(), tweet.getUser().getProfileImageURL()
                                     , mTwitterDatas.get(i).getTag(), -1 * mTwitterDatas.get(i).getTimeStamp(), 0, mTwitterDatas.get(i).getData());
+
 
                             // Kosaraju k = new Kosaraju();
                             int[] vis = new int[100];
@@ -266,7 +271,7 @@ public class NewsFeed extends Fragment {
                         }
                     }
 
-                  //  System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+                    //  System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
                 }
 
                 f.orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
@@ -319,20 +324,30 @@ public class NewsFeed extends Fragment {
                 //   Log.e("SJS",mTwitterDatas.size()+" S");
             } catch (TwitterException te) {
                 te.printStackTrace();
-             //   System.out.println("Failed to search tweets: " + te.getMessage());
-             //   System.exit(-1);
+                //   System.out.println("Failed to search tweets: " + te.getMessage());
+                //   System.exit(-1);
             }
             return null;
         }
 
     }
 
-    class Watson extends AsyncTask<Void, Void, Void> {
+    class Watson extends AsyncTask<Void, String, Void> {
 
+        String s;
+        public Watson(String s)
+        {
+            this.s = s;
+        }
         @Override
         protected Void doInBackground(Void... voids) {
 
-            return null;
+
+//            Firebase f= new Firebase(Constants.BASE_URL).child("sj");
+//            ToneAnalysis tone = service.getTone(s, null).execute();
+//            System.out.println(tone);
+//            f.setValue(tone);
+                        return null;
         }
     }
 

@@ -7,6 +7,7 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,12 @@ public class VerticlePagerAdapter extends PagerAdapter {
         hint.setText("You have shown interest in "+mPosts.get(position).getTag());
         Picasso.with(mContext).load(mPosts.get(position).getImageUrl())
                 .transform(new Blur(mContext, 50)).fit().centerCrop().into((ImageView) itemView.findViewById(R.id.blurBg));
+
+        Log.e("SJ",postData.getText().toString());
+               //Log.e("Text fed to watson",textForWatson);
+
+               // ToneAnalysis tone = service.getTone(textForWatson, null).execute();
+
 
         return itemView;
     }

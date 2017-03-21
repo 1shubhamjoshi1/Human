@@ -94,12 +94,12 @@ public class TrainSet extends AppCompatActivity {
             for (Status tweet : tweets) {
                 MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
                 for (MediaEntity m : media) { //search trough your entities
-                    System.out.println(m.getMediaURL()); //get your url!
+                   // System.out.println(m.getMediaURL()); //get your url!
 
                     TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), tweet.getCreatedAt().getTime(),"trending");
                     mTwitterDatas.add(td);
                 }
-                System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+               // System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
             }
 
             runOnUiThread(new Runnable() {
@@ -162,7 +162,7 @@ public class TrainSet extends AppCompatActivity {
             //   Log.e("SJS",mTwitterDatas.size()+" S");
         } catch (TwitterException te) {
             te.printStackTrace();
-            System.out.println("Failed to search tweets: " + te.getMessage());
+            //System.out.println("Failed to search tweets: " + te.getMessage());
            // System.exit(-1);
         }
     }

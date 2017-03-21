@@ -49,18 +49,18 @@ dependencies {
     compile 'com.android.support:palette-v7:24.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:24.2.1'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.1'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'com.firebase:firebase-client-android:2.5.2'
-    compile 'com.android.support:palette-v7:24.1.1'
+
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.firebaseui:firebase-ui:0.3.1'
     compile 'com.ibm.watson.developer_cloud:java-sdk:3.0.1'
 
     testCompile 'junit:junit:4.12'
-    compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.1'
 
 }
 //apply plugin: 'com.google.gms.google-services'
