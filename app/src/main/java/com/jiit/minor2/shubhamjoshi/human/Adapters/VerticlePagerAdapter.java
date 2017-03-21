@@ -15,7 +15,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.jiit.minor2.shubhamjoshi.human.R;
+import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Post;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -30,11 +35,12 @@ public class VerticlePagerAdapter extends PagerAdapter {
     LayoutInflater mLayoutInflater;
     ArrayList<Post> mPosts;
 
-    public VerticlePagerAdapter(Context context, ArrayList<Post> posts,ArrayList<String> hintt) {
+    long len;
+    public VerticlePagerAdapter(Context context, ArrayList<Post> posts,ArrayList<String> hintt,long len) {
         mContext = context;
 
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+this.len = len;
         this.mPosts = posts;
         this.hintt = hintt;
 
@@ -44,7 +50,9 @@ public class VerticlePagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 70;
+
+    Integer i = (int) (long)len;
+    return i;
     }
 
     @Override

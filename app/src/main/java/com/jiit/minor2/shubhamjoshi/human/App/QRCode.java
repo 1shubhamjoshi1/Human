@@ -1,9 +1,11 @@
 package com.jiit.minor2.shubhamjoshi.human.App;
 
 import android.graphics.PointF;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -35,8 +37,9 @@ public class QRCode extends AppCompatActivity implements QRCodeReaderView.OnQRCo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode);
-
-
+        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        Toast.makeText(getBaseContext(),ip,Toast.LENGTH_LONG).show();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -53,7 +56,7 @@ public class QRCode extends AppCompatActivity implements QRCodeReaderView.OnQRCo
         HttpClient httpClient = new DefaultHttpClient();
 
 
-        HttpPost httpPost = new HttpPost("http://192.168.1.9:1000/Human-Web-/gencode/auth");
+        HttpPost httpPost = new HttpPost("http://192.168.1.5:1000/Human-Web-/gencode/auth");
 
         String jsonStr = "{\"uuid\":\"" + qrStr + "\",\"access_token\":\"" + accessToken + "\"}";
 

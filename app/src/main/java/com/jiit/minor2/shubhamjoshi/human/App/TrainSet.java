@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -51,6 +53,7 @@ public class TrainSet extends AppCompatActivity {
 
     String json = "{}";
     OkHttpClient client = new OkHttpClient();
+
     String post(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
@@ -61,6 +64,7 @@ public class TrainSet extends AppCompatActivity {
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
+
     String email;
 
     RecyclerView mRecyclerView;
@@ -81,7 +85,6 @@ public class TrainSet extends AppCompatActivity {
         Twitter twitter = new TwitterFactory(cb.build()).getInstance();
 
 
-
         try {
             Query query = new Query("#birds");
             query.setCount(100);
@@ -90,16 +93,16 @@ public class TrainSet extends AppCompatActivity {
             List<Status> tweets = result.getTweets();
 
             Paging paging = new Paging(1, 100);
-            List<Status> statuses = twitter.getUserTimeline("ranveerbrar",paging);
+            List<Status> statuses = twitter.getUserTimeline("ranveerbrar", paging);
             for (Status tweet : tweets) {
                 MediaEntity[] media = tweet.getMediaEntities(); //get the media entities from the status
                 for (MediaEntity m : media) { //search trough your entities
-                   // System.out.println(m.getMediaURL()); //get your url!
+                    // System.out.println(m.getMediaURL()); //get your url!
 
-                    TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), tweet.getCreatedAt().getTime(),"trending");
+                    TwitterData td = new TwitterData(m.getMediaURL(), tweet.getText(), tweet.getCreatedAt().getTime(), "trending");
                     mTwitterDatas.add(td);
                 }
-               // System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+                // System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
             }
 
             runOnUiThread(new Runnable() {
@@ -109,7 +112,7 @@ public class TrainSet extends AppCompatActivity {
                     TrainAdapter trainAdapter = new TrainAdapter(TrainSet.this, mTwitterDatas);
                     r.setAdapter(trainAdapter);
 
-                    r.setLayoutManager(new GridLayoutManager(TrainSet.this, 3));
+                    r.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
                     Log.e("SJ", mTwitterDatas.size() + " S");
                     Log.e("SSSS", email + "SSS");
                     trainAdapter.setClickListener(new TrainAdapter.ClickListener() {
@@ -159,18 +162,17 @@ public class TrainSet extends AppCompatActivity {
             });
 
 
-            //   Log.e("SJS",mTwitterDatas.size()+" S");
         } catch (TwitterException te) {
             te.printStackTrace();
-            //System.out.println("Failed to search tweets: " + te.getMessage());
-           // System.exit(-1);
+
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // new FunAsyncTask().execute();
+        // new FunAsyncTask().execute();
 
         setContentView(R.layout.activity_train_set);
         RelativeLayout next = (RelativeLayout) findViewById(R.id.next);
@@ -218,16 +220,4 @@ public class TrainSet extends AppCompatActivity {
         super.onResume();
     }
 
-//    class FunAsyncTask extends AsyncTask<Void,Void,Void>{
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            try {
-//                //System.out.println("SHUBHAM TEST " + post("",json));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//    }
 }

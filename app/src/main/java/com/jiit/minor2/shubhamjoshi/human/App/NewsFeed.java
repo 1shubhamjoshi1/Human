@@ -276,11 +276,12 @@ public class NewsFeed extends Fragment {
 
                 f.orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(final DataSnapshot dataSnapshot) {
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
 
                             Post post = child.getValue(Post.class);
                             wlist.add(post);
+
                             // Log.e("task", post.toString());
                         }
 
@@ -305,7 +306,7 @@ public class NewsFeed extends Fragment {
                                             e.printStackTrace();
                                         }
                                     if (wlist != null && verticalViewPager != null)
-                                        verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity().getBaseContext(), nlist, hint));
+                                        verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity().getBaseContext(), nlist, hint,dataSnapshot.getChildrenCount()));
                                 }
                             });
 

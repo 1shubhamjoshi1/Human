@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jiit.minor2.shubhamjoshi.human">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -27,20 +29,17 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".App.Register">
-
-        </activity>
-        <activity android:name=".App.TrainSet" >
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".FeedStarUp" />
-        <activity android:name=".App.QRCode"></activity>
-        <activity android:name=".Chooser">
-
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".App.TrainSet"></activity>
+        <activity android:name=".FeedStarUp" />
+        <activity android:name=".App.QRCode" > </activity>
+        <activity android:name=".Chooser"></activity>
+        <activity android:name=".Adapters.GetIp"></activity>
     </application>
 
 </manifest>

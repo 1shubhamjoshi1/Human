@@ -36,7 +36,9 @@ public class TrainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private  final Context mContext;
 
     private List<TwitterData> mData;
+    private int mCurrentItemId = 0;
     String email;
+
 
 
     public TrainAdapter(Context context,List<TwitterData> mData) {
@@ -63,6 +65,7 @@ public class TrainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -85,7 +88,7 @@ public class TrainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 */
 
         Picasso.with(mContext)
-                .load((mData.get(position).getImageUrl()))
+                .load((mData.get(position).getImageUrl())).resize(400,400)
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(((ViewHolderTrain) holder).mImageView1, new Callback() {
                     @Override

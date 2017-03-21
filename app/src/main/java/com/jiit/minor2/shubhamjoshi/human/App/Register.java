@@ -174,8 +174,13 @@ public class Register extends AppCompatActivity {
                                     JSONObject data = response.getJSONObject();
                                     if (data.has("picture")) {
                                         profileImage = data.getJSONObject("picture").getJSONObject("data").getString("url");
-                                        email = data.getString("email");
                                         SharedPreferences.Editor editor = getSharedPreferences("EMAIL", MODE_PRIVATE).edit();
+                                        editor.putString("ProfileImage", profileImage);
+
+
+
+                                        email = data.getString("email");
+
                                         editor.putString("email", email);
                                         editor.commit();
                                         Firebase branchUser = new Firebase(Constants.BASE_URL + "/Users");

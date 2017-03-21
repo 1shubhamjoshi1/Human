@@ -1,17 +1,25 @@
 package com.jiit.minor2.shubhamjoshi.human;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.jiit.minor2.shubhamjoshi.human.Adapters.GetIp;
 import com.jiit.minor2.shubhamjoshi.human.App.QRCode;
 import com.jiit.minor2.shubhamjoshi.human.CustomDrawer.FullDrawerLayout;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class NavBar extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -66,9 +74,21 @@ public class NavBar extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v =  inflater.inflate(R.layout.fragment_nav_bar, container, false);
+        ImageView image = (ImageView) v.findViewById(R.id.ip_tag);
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(),QRCode.class));
+            }
+        });
+        CircleImageView fb = (CircleImageView)v.findViewById(R.id.userImg);
 
-
-
+        SharedPreferences prefs = this.getActivity().getSharedPreferences("EMAIL", MODE_PRIVATE);
+        String pImage = prefs.getString("ProfileImage", null);
+        Log.e("Profile image ",pImage);
+        if (pImage!= null) {
+            Picasso.with(v.getContext()).load(pImage).into(fb);
+        }
        return v;
     }
 
