@@ -22,14 +22,11 @@ public class GetIp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_ip);
-        CircularRevealAnimator.of(this).onCreate(R.id.text);
+
 
     }
 
-    @Override
-    public void onBackPressed() {
-        CircularRevealAnimator.of(this).onBackPressed(R.id.text);
-    }
+
 
 }
 

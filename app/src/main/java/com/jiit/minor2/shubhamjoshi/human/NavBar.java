@@ -103,9 +103,5 @@ public class NavBar extends Fragment {
     }
 
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        CircularRevealAnimator.of(getActivity()).reveal(R.id.head,0,0);
-    }
+
 }
