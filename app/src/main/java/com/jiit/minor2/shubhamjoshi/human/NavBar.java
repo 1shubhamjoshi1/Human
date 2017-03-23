@@ -83,8 +83,15 @@ public class NavBar extends Fragment {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(),QRCode.class));
+
+
+                //startActivity(new Intent(view.getContext(),QRCode.class));
                // CircularRevealAnimator.of(getActivity()).startActivity(new Intent(container.getContext(), GetIp.class), R.id.ip_tag);
+                Intent intent = new Intent(view.getContext(), QRCode.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+                getActivity().finish();
 
             }
         });

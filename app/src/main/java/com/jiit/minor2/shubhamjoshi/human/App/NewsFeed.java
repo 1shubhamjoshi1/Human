@@ -99,7 +99,7 @@ public class NewsFeed extends Fragment {
 
         // Log.e("SJ", email);
 
-        mref.child("interests").child("joshihacked@yahoo,in").addValueEventListener(new ValueEventListener() {
+        mref.child("interests").child("nscoolnike@gmail,com").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 HashMap<String, String> m = (HashMap<String, String>) snapshot.getValue();
@@ -227,6 +227,7 @@ public class NewsFeed extends Fragment {
 
                         Firebase ff = new Firebase(Constants.BASE_URL);
                         final String[] rr = new String[1];
+
                         rr[0] = "trends";
                         ff.child("interests").child("joshihacked@yahoo,in").addValueEventListener(new ValueEventListener() {
                             @Override

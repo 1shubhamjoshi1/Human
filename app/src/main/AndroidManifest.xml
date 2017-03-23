@@ -29,17 +29,21 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".App.Register">
+
+        </activity>
+        <activity android:name=".App.TrainSet" />
+        <activity android:name=".FeedStarUp" />
+        <activity android:name=".App.QRCode"></activity>
+        <activity android:name=".Chooser" />
+        <activity android:name=".Adapters.GetIp" />
+        <activity android:name=".App.IntroPage">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".App.TrainSet"></activity>
-        <activity android:name=".FeedStarUp" />
-        <activity android:name=".App.QRCode" > </activity>
-        <activity android:name=".Chooser"></activity>
-        <activity android:name=".Adapters.GetIp"></activity>
     </application>
 
 </manifest>

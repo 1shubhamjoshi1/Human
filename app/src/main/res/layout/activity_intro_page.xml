@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_intro_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/app_back"
+
+    tools:context="com.jiit.minor2.shubhamjoshi.human.App.IntroPage">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:id="@+id/click"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_language_white_24dp"/>
+
+    <io.codetail.widget.RevealFrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top"
+
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+
+            android:id="@+id/target"
+            android:layout_height="wrap_content">
+
+
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical|center_horizontal"
+
+                android:src="@drawable/logo"/>
+
+        </FrameLayout>
+
+
+
+
+    </io.codetail.widget.RevealFrameLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/messages_recycler"
+        android:layout_marginTop="350dp"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

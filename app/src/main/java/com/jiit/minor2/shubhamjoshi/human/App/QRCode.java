@@ -49,7 +49,7 @@ public class QRCode extends AppCompatActivity implements QRCodeReaderView.OnQRCo
         mydecoderview.setOnQRCodeReadListener(this);
         mydecoderview.setBackCamera();
 
-        Log.e("SHubham oncreate","SJ");
+     //   Log.e("SHubham oncreate","SJ");
 
 
 

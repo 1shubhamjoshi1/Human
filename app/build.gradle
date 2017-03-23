@@ -56,10 +56,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'com.firebase:firebase-client-android:2.5.2'
     compile 'io.github.hendraanggrian:circularrevealanimator:0.1.4'
-
-    compile ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
-        transitive = true;
-    }
+    compile 'io.github.hendraanggrian:circularrevealanimator:0.1.4'
 
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
     compile 'com.android.support:support-v4:24.2.1'

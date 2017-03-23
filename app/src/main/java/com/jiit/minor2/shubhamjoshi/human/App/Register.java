@@ -28,6 +28,8 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import io.github.hendraanggrian.circularrevealanimator.CircularRevealAnimator;
+
 public class Register extends AppCompatActivity {
 
     private Firebase ref = new Firebase(Constants.BASE_URL);
@@ -67,7 +69,7 @@ public class Register extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_register);
-
+        CircularRevealAnimator.of(this).onCreate(R.id.layout);
         if (isLoggedIn()) {
             startActivity(new Intent(this, TrainSet.class));
         } else {
