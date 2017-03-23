@@ -9,38 +9,48 @@
 
     tools:context="com.jiit.minor2.shubhamjoshi.human.App.IntroPage">
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="20dp"
-        android:id="@+id/click"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_language_white_24dp"/>
 
     <io.codetail.widget.RevealFrameLayout
         android:layout_width="match_parent"
         android:id="@+id/top"
 
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="50dp"
-
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/target"
-            android:layout_height="wrap_content">
-
+            android:layout_height="match_parent">
 
 
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical|center_horizontal"
+                android:layout_width="30dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:id="@+id/click"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_language_white_24dp"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left"
 
                 android:src="@drawable/logo"/>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:background="#000"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="50dp"
+                android:layout_height="match_parent">
+
+            </LinearLayout>
 
         </FrameLayout>
 
@@ -53,7 +63,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/messages_recycler"
-        android:layout_marginTop="350dp"
+        android:layout_margin="50dp"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

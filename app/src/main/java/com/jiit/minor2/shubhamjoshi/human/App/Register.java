@@ -62,7 +62,10 @@ public class Register extends AppCompatActivity {
         super.onPause();
         //mAuthProgressDialog.dismiss();
     }
-
+    @Override
+    public void onBackPressed() {
+        CircularRevealAnimator.of(this).onBackPressed(R.id.layout);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
