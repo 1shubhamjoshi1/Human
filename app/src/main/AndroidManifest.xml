@@ -27,23 +27,21 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".App.Register">
-
-        </activity>
-        <activity android:name=".App.TrainSet" />
-        <activity android:name=".FeedStarUp" />
-        <activity android:name=".App.QRCode"></activity>
-        <activity android:name=".Chooser" />
-        <activity android:name=".Adapters.GetIp" />
-        <activity android:name=".App.IntroPage">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".App.TrainSet" />
+        <activity android:name=".FeedStarUp" />
+        <activity android:name=".App.QRCode"></activity>
+        <activity android:name=".Chooser" />
+        <activity android:name=".Adapters.GetIp" />
+        <activity android:name=".App.IntroPage"></activity>
+        <activity android:name=".CommentAct"></activity>
     </application>
 
 </manifest>

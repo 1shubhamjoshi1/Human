@@ -1,6 +1,7 @@
 package com.jiit.minor2.shubhamjoshi.human.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -19,6 +20,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.jiit.minor2.shubhamjoshi.human.CommentAct;
 import com.jiit.minor2.shubhamjoshi.human.R;
 import com.jiit.minor2.shubhamjoshi.human.Utils.Constants;
 import com.jiit.minor2.shubhamjoshi.human.modals.Post;
@@ -36,8 +38,7 @@ public class VerticlePagerAdapter extends PagerAdapter {
     ArrayList<String> hintt;
     LayoutInflater mLayoutInflater;
     ArrayList<Post> mPosts;
-
-    long len;
+ long len;
     public VerticlePagerAdapter(Context context, ArrayList<Post> posts,ArrayList<String> hintt,long len) {
         mContext = context;
 
@@ -63,12 +64,13 @@ this.len = len;
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         c = true;
         View itemView = mLayoutInflater.inflate(R.layout.content_main, container, false);
 
 
         ImageView postImage = (ImageView) itemView.findViewById(R.id.mainImage);
+
         TextView label = (TextView) itemView.findViewById(R.id.textView);
         ImageView postOwner = (ImageView) itemView.findViewById(R.id.postOwner);
         Picasso.with(mContext).load(mPosts.get(position).getImageOwnerUrl().replace("_normal", "")).into(postOwner);
@@ -82,6 +84,17 @@ this.len = len;
         Picasso.with(mContext).load(mPosts.get(position).getImageUrl())
                 .transform(new Blur(mContext, 50)).fit().centerCrop().into((ImageView) itemView.findViewById(R.id.blurBg));
 
+
+        ImageView box = (ImageView) itemView.findViewById(R.id.box);
+        box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("Main",mPosts.get(position).getImageUrl());
+                Intent I = new Intent(mContext, CommentAct.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                I.putExtra("URL",mPosts.get(position).getImageUrl());
+                mContext.startActivity(I);
+            }
+        });
         Log.e("SJ",postData.getText().toString());
                //Log.e("Text fed to watson",textForWatson);
 

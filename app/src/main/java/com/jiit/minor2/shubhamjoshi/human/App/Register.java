@@ -28,7 +28,6 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import io.github.hendraanggrian.circularrevealanimator.CircularRevealAnimator;
 
 public class Register extends AppCompatActivity {
 
@@ -62,17 +61,14 @@ public class Register extends AppCompatActivity {
         super.onPause();
         //mAuthProgressDialog.dismiss();
     }
-    @Override
-    public void onBackPressed() {
-        CircularRevealAnimator.of(this).onBackPressed(R.id.layout);
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_register);
-        CircularRevealAnimator.of(this).onCreate(R.id.layout);
+
         if (isLoggedIn()) {
             startActivity(new Intent(this, TrainSet.class));
         } else {

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_comment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.jiit.minor2.shubhamjoshi.human.CommentAct">
+<android.support.v7.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rview"></android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+
+        android:orientation="horizontal"
+       android:weightSum="1"
+        android:layout_height="50dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/a"
+            android:layout_height="wrap_content"
+            android:text="dsfs"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:background="#e11c1c"
+            android:id="@+id/b"
+            android:text="send"
+            android:textColor="#fff"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+</RelativeLayout>

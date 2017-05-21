@@ -15,6 +15,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.jiit.minor2.shubhamjoshi.human.Adapters.VerticlePagerAdapter;
+import com.jiit.minor2.shubhamjoshi.human.Clustering.Kosaraju.Kosaraju;
 import com.jiit.minor2.shubhamjoshi.human.MagicPosts;
 import com.jiit.minor2.shubhamjoshi.human.Pagers.VerticalViewPager;
 import com.jiit.minor2.shubhamjoshi.human.R;
@@ -99,7 +100,10 @@ public class NewsFeed extends Fragment {
 
         // Log.e("SJ", email);
 
-        mref.child("interests").child("nscoolnike@gmail,com").addValueEventListener(new ValueEventListener() {
+
+        SharedPreferences prdefs = this.getActivity().getSharedPreferences("EMAIL", MODE_PRIVATE);
+        String emdail = prdefs.getString("email", null);
+        mref.child("interests").child(emdail.replace(".",",")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 HashMap<String, String> m = (HashMap<String, String>) snapshot.getValue();
@@ -139,7 +143,7 @@ public class NewsFeed extends Fragment {
 
                     Post p = child.getValue(Post.class);
                     String textForWatson = p.getMatter();
-                    Log.e("Text fed to watson", textForWatson);
+                   // Log.e("Text fed to watson", textForWatson);
 
                     // Call the service and get the tone
                    new Watson(textForWatson).execute();
@@ -262,7 +266,7 @@ public class NewsFeed extends Fragment {
                                     , mTwitterDatas.get(i).getTag(), -1 * mTwitterDatas.get(i).getTimeStamp(), 0, mTwitterDatas.get(i).getData());
 
 
-                            // Kosaraju k = new Kosaraju();
+                            Kosaraju k = new Kosaraju();
                             int[] vis = new int[100];
                             // k.DFS(null,1,null,null);
                             if (!set.contains(p.getImageUrl())) {
